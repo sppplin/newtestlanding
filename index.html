@@ -959,19 +959,19 @@ a{color:inherit;text-decoration:none;}
 .footer{background:#0a0a0a;border-top:1px solid rgba(240,165,0,.15);padding:40px 24px 24px;}
 .footer-inner{max-width:var(--wrap);margin:0 auto;}
 .f-brand-name{font-size:15px;font-weight:900;color:#fff;margin-bottom:6px;}
-.f-brand-sub{font-size:12.5px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:14px;}
-.f-links a{display:block;color:rgba(255,255,255,.5);font-size:13px;line-height:2.2;transition:color .15s;}
+.f-brand-sub{font-size:12.5px;color:rgba(255,255,255,.75);line-height:1.75;margin-bottom:14px;}
+.f-links a{display:block;color:rgba(255,255,255,.82);font-size:13px;line-height:2.2;transition:color .15s;}
 .f-links a:hover{color:var(--gold);}
-.f-col-title{font-size:11px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
-.f-kw-links a{display:block;font-size:12.5px;color:rgba(255,255,255,.38);line-height:2.1;font-weight:500;transition:color .15s;}
+.f-col-title{font-size:11px;font-weight:700;color:rgba(255,255,255,.5);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.f-kw-links a{display:block;font-size:12.5px;color:rgba(255,255,255,.78);line-height:2.1;font-weight:500;transition:color .15s;}
 .f-kw-links a:hover{color:var(--gold);}
 .footer-bottom{
   max-width:var(--wrap);margin:24px auto 0;
   padding-top:18px;border-top:1px solid rgba(255,255,255,.06);
-  font-size:12px;color:rgba(255,255,255,.25);
+  font-size:12px;color:rgba(255,255,255,.5);
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
 }
-.footer-bottom a{color:rgba(255,255,255,.45);transition:color .15s;}
+.footer-bottom a{color:rgba(255,255,255,.65);transition:color .15s;}
 .footer-bottom a:hover{color:var(--gold);}
 
 /* ─── STICKY MOBILE ──────────────────────── */
@@ -3531,9 +3531,8 @@ function submitHeroForm(){
   } catch(e){}
   sendToGoogleSheets(lead);
 
-  // ── OPEN WHATSAPP + REDIRECT ──
-  window.open('https://wa.me/919871713676?text='+msg, '_blank');
-  window.location.href = 'thank-you.html';
+  // ── REDIRECT TO THANK-YOU (WhatsApp link embedded in thank-you page) ──
+  window.location.href = 'thank-you.html?wa='+encodeURIComponent('https://wa.me/919871713676?text='+msg);
 }
 
 function triggerShake(el){
@@ -3763,9 +3762,8 @@ function submitQuoteModal(){
     sendToGoogleSheets(lead);
   } catch(e){}
 
-  // ── OPEN WHATSAPP + REDIRECT ──
-  window.open('https://wa.me/919871713676?text='+waMsg, '_blank');
-  window.location.href = 'thank-you.html';
+  // ── REDIRECT TO THANK-YOU (WhatsApp link embedded in thank-you page) ──
+  window.location.href = 'thank-you.html?wa='+encodeURIComponent('https://wa.me/919871713676?text='+waMsg);
   _qmAttempts = 0;
 }
 
