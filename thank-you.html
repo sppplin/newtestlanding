@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -329,4 +330,17 @@ a{text-decoration:none;color:inherit;}
 </div>
 
 </body>
+<script>
+// Auto-open WhatsApp with the pre-filled message passed from the form
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var waUrl = params.get('wa');
+  if(waUrl){
+    // Small delay so thank-you page renders first, then WA opens
+    setTimeout(function(){
+      window.open(decodeURIComponent(waUrl), '_blank');
+    }, 800);
+  }
+})();
+</script>
 </html>
