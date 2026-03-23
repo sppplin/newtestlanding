@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,8 +13,7 @@
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"Solar Print Process Pvt. Ltd.","url":"https://solarprint.com","telephone":"+919871713676","description":"India's leading custom packaging manufacturer since 1975. Mono cartons, rigid boxes, cosmetic & pharma packaging.","address":{"@type":"PostalAddress","streetAddress":"C-10, Sector 85","addressLocality":"Noida","addressRegion":"UP","postalCode":"201305","addressCountry":"IN"},"openingHours":"Mo-Sa 09:30-18:00","foundingDate":"1975","sameAs":["https://wa.me/919871713676"]}
 </script>
 
-<!-- Google Ads — replace ID -->
-<!--
+<!-- Google Ads + GA4 Tracking Block
 <!--
   ╔══════════════════════════════════════════════════════╗
   ║  GOOGLE ADS + GA4 TRACKING — REPLACE IDs BELOW      ║
@@ -164,7 +164,6 @@ window.SP = {
 
 };
 </script>
--->
 
 <!-- Roboto — clean, universal, readable on all devices -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -3513,15 +3512,28 @@ function submitHeroForm(){
     document.querySelector('.form-chip.selected') ? document.querySelector('.form-chip.selected').dataset.val : 'General',
     company.value.trim()
   );
-  window.open('https://wa.me/919871713676?text='+msg,'_blank');
 
-  // Show success
-  document.querySelectorAll('.form-step').forEach(function(s){s.classList.remove('active');});
-  document.getElementById('fStep2').classList.add('active');
-  document.getElementById('dot2').classList.add('active');
-  var proofRow = document.getElementById('hfcProofRow');
-  if(proofRow) proofRow.style.display='none';
-  showToast('\u2705 Sent! Our expert will call you shortly.');
+  // ── SAVE LEAD (localStorage + Google Sheets) ──
+  var lead = {
+    id: Date.now(),
+    ts: new Date().toLocaleString('en-IN'),
+    name: name.value.trim(),
+    phone: '+91 ' + phone.value.trim(),
+    company: company.value.trim(),
+    gst: gst.value.trim(),
+    source: 'Hero Form',
+    product: document.querySelector('.form-chip.selected') ? document.querySelector('.form-chip.selected').dataset.val : '',
+    page: window.location.href
+  };
+  try {
+    var leads = JSON.parse(localStorage.getItem('sp_leads') || '[]');
+    leads.unshift(lead); localStorage.setItem('sp_leads', JSON.stringify(leads.slice(0,500)));
+  } catch(e){}
+  sendToGoogleSheets(lead);
+
+  // ── OPEN WHATSAPP + REDIRECT ──
+  window.open('https://wa.me/919871713676?text='+msg, '_blank');
+  window.location.href = 'thank-you.html';
 }
 
 function triggerShake(el){
@@ -3729,22 +3741,86 @@ function submitQuoteModal(){
     +'%0APhone:+%2B91+'+encodeURIComponent(phone.value.trim())
     +gstPart;
 
-  // Update WA link in success state
-  document.getElementById('qmSuccessWa').href = 'https://wa.me/919871713676?text='+waMsg;
-
   // ── CONVERSION TRACKING ──
   SP.trackQuoteModal(_currentProduct, document.getElementById('qmCompany').value.trim());
 
-  // Show success
-  document.getElementById('qmFormState').style.display='none';
-  document.getElementById('qmSuccessState').style.display='block';
+  // ── SAVE LEAD ──
+  try {
+    var lead = {
+      id: Date.now(),
+      ts: new Date().toLocaleString('en-IN'),
+      name: document.getElementById('qmName').value.trim(),
+      phone: '+91 ' + document.getElementById('qmPhone').value.trim(),
+      company: document.getElementById('qmCompany').value.trim(),
+      gst: document.getElementById('qmGst').value.trim(),
+      source: 'Quote Modal',
+      product: _currentProduct,
+      page: window.location.href
+    };
+    var leads = JSON.parse(localStorage.getItem('sp_leads') || '[]');
+    leads.unshift(lead);
+    localStorage.setItem('sp_leads', JSON.stringify(leads.slice(0, 500)));
+    sendToGoogleSheets(lead);
+  } catch(e){}
+
+  // ── OPEN WHATSAPP + REDIRECT ──
+  window.open('https://wa.me/919871713676?text='+waMsg, '_blank');
+  window.location.href = 'thank-you.html';
   _qmAttempts = 0;
-  showToast('\u2705 Quote request submitted!');
 }
 
 
 
 // ── CATALOGUE FORM ────────────────────────
+
+// ══════════════════════════════════════════
+// GOOGLE SHEETS INTEGRATION
+// ══════════════════════════════════════════
+//
+// HOW TO SET UP (5 minutes, free):
+//
+// STEP 1 — Create your Google Sheet:
+//   • Go to sheets.google.com → New Sheet
+//   • Name it: "Solar Print Leads"
+//   • Row 1 headers (exactly): Date | Name | Phone | Company | GST | Source | Product | Page
+//
+// STEP 2 — Create the Apps Script webhook:
+//   • In your Sheet → Extensions → Apps Script
+//   • Delete any existing code and paste ALL of this:
+//
+//   function doPost(e) {
+//     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+//     var data = JSON.parse(e.postData.contents);
+//     sheet.appendRow([
+//       data.ts, data.name, data.phone, data.company,
+//       data.gst, data.source, data.product, data.page
+//     ]);
+//     return ContentService
+//       .createTextOutput(JSON.stringify({status:'ok'}))
+//       .setMimeType(ContentService.MimeType.JSON);
+//   }
+//
+// STEP 3 — Deploy as Web App:
+//   • Click "Deploy" → "New Deployment"
+//   • Type: Web App
+//   • Execute as: Me
+//   • Who has access: Anyone
+//   • Click Deploy → Copy the Web App URL
+//
+// STEP 4 — Paste the URL below:
+//   Replace 'YOUR_GOOGLE_SCRIPT_URL' with your copied URL
+//
+var SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzW1wqWAJMZ1AJDEGAv5pNn-QH0QjnVhtpwXbewOopHYN-uIUKoaZPoaxVRpuHo6Rcr/exec';
+
+function sendToGoogleSheets(lead) {
+  if (!SHEETS_URL || SHEETS_URL === 'YOUR_GOOGLE_SCRIPT_URL') return;
+  fetch(SHEETS_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(lead)
+  }).catch(function(){});
+}
 
 // ── TOAST ─────────────────────────────────
 function showToast(msg){
