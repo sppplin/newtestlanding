@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — Solar Print Process</title>
+<meta name="description" content="Thank you for your enquiry. Our packaging expert will call you within 2 hours.">
+<meta name="robots" content="noindex, nofollow">
+
+<!-- Google Ads Conversion — fires on page load = guaranteed tracking -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-CONVERSION_ID"></script>
+<script>
+  window.dataLayer=window.dataLayer||[];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js',new Date());
+  gtag('config','AW-CONVERSION_ID');
+  // Primary conversion — fires every time thank-you page loads
+  gtag('event','conversion',{send_to:'AW-CONVERSION_ID/LABEL_FORM_LEAD',value:5.0,currency:'INR'});
+  // GA4
+  gtag('config','G-GA4_MEASUREMENT_ID');
+  gtag('event','generate_lead',{currency:'INR',value:5.0});
+</script>
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Roboto',Arial,sans-serif;background:#fff;color:#1a1a1a;-webkit-font-smoothing:antialiased;line-height:1.6;}
+img{max-width:100%;display:block;}
+a{text-decoration:none;color:inherit;}
+:root{
+  --gold:#f0a500;--gold2:#ffc940;--goldbg:#fff8e6;
+  --dark:#111;--ink:#1a1a1a;--ink2:#3d3d3d;--t3:#777;
+  --bg2:#f7f4ef;--border:#e8e3d8;--border2:#ede9e0;
+  --wa:#25D366;--r:4px;--wrap:1080px;
+}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+
+/* NAV */
+.nav{background:#fff;border-bottom:1px solid var(--border2);padding:0 24px;}
+.nav-inner{max-width:var(--wrap);margin:0 auto;height:62px;display:flex;align-items:center;justify-content:space-between;}
+.logo{font-size:16px;font-weight:900;color:var(--ink);}
+.nav-cta{display:flex;gap:10px;}
+.btn-call{font-size:13px;font-weight:700;color:var(--ink);padding:8px 16px;border:1.5px solid var(--border);border-radius:var(--r);display:flex;align-items:center;gap:6px;transition:border-color .15s;}
+.btn-call:hover{border-color:var(--gold);color:var(--gold);}
+.btn-wa-sm{font-size:13px;font-weight:700;color:#fff;background:var(--wa);padding:9px 18px;border-radius:var(--r);display:inline-flex;align-items:center;gap:6px;transition:background .15s;}
+.btn-wa-sm:hover{background:#1fba58;}
+
+/* HERO — Thank You */
+.ty-hero{
+  background:linear-gradient(160deg,#0d0d0d 0%,#151008 55%,#1a1200 100%);
+  padding:64px 24px 56px;text-align:center;
+  position:relative;overflow:hidden;
+}
+.ty-hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(240,165,0,.08) 0%,transparent 70%);
+}
+.ty-check{
+  width:72px;height:72px;border-radius:50%;
+  background:linear-gradient(135deg,#22c55e,#16a34a);
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;position:relative;z-index:1;
+  box-shadow:0 8px 32px rgba(34,197,94,.35);
+}
+.ty-check svg{color:#fff;}
+.ty-title{font-size:clamp(26px,5vw,40px);font-weight:900;color:#fff;line-height:1.15;margin-bottom:10px;position:relative;z-index:1;letter-spacing:-.025em;}
+.ty-title em{font-style:normal;color:var(--gold);}
+.ty-sub{font-size:16px;color:rgba(255,255,255,.6);max-width:520px;margin:0 auto 28px;line-height:1.7;position:relative;z-index:1;}
+.ty-badges{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-bottom:28px;position:relative;z-index:1;}
+.ty-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.75);padding:6px 14px;border-radius:20px;font-size:12.5px;font-weight:600;
+}
+.ty-badge-gold{background:rgba(240,165,0,.12);border-color:rgba(240,165,0,.3);color:var(--gold);}
+.ty-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;position:relative;z-index:1;}
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:var(--gold);color:#000;font-size:14.5px;font-weight:900;padding:13px 28px;border-radius:var(--r);transition:background .15s,transform .12s;}
+.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-wa-lg{display:inline-flex;align-items:center;gap:8px;background:var(--wa);color:#fff;font-size:14.5px;font-weight:700;padding:13px 28px;border-radius:var(--r);transition:background .15s;}
+.btn-wa-lg:hover{background:#1fba58;}
+
+/* WHAT HAPPENS NEXT */
+.next-sec{padding:52px 24px;background:var(--bg2);border-bottom:1.5px solid var(--border2);}
+.next-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:780px;margin:28px auto 0;}
+@media(max-width:600px){.next-grid{grid-template-columns:1fr;}}
+.next-card{background:#fff;border:1.5px solid var(--border2);border-radius:10px;padding:22px 18px;text-align:center;}
+.next-num{width:36px;height:36px;border-radius:50%;background:var(--gold);color:#000;font-size:14px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;}
+.next-card h3{font-size:14.5px;font-weight:900;color:var(--ink);margin-bottom:6px;}
+.next-card p{font-size:13px;color:var(--t3);line-height:1.6;}
+
+/* PRODUCTS SECTION */
+.prod-sec{padding:52px 24px;background:#fff;}
+.sec-head{text-align:center;margin-bottom:32px;}
+.lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;}
+.h2{font-size:clamp(22px,3.5vw,30px);font-weight:900;color:var(--ink);line-height:1.2;letter-spacing:-.02em;}
+.h2 em{font-style:normal;color:var(--gold);}
+.sub{font-size:15px;color:var(--t3);margin-top:6px;}
+
+.prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+@media(max-width:768px){.prod-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:480px){.prod-grid{grid-template-columns:1fr;}}
+.prod-card{border:1.5px solid var(--border2);border-radius:8px;overflow:hidden;background:#fff;transition:all .2s;text-decoration:none;color:inherit;display:block;}
+.prod-card:hover{border-color:var(--wa);transform:translateY(-3px);box-shadow:0 8px 28px rgba(37,211,102,.12);}
+.prod-img{height:130px;object-fit:cover;width:100%;display:block;}
+.prod-body{padding:14px 16px;}
+.prod-tag{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gold);margin-bottom:4px;}
+.prod-body h3{font-size:13.5px;font-weight:900;color:var(--ink);margin-bottom:5px;}
+.prod-body p{font-size:12px;color:var(--t3);line-height:1.55;}
+.prod-wa{font-size:11.5px;font-weight:700;color:var(--wa);margin-top:8px;}
+.prod-card:hover .prod-wa{text-decoration:underline;}
+
+/* TESTIMONIAL STRIP */
+.testi-strip{background:var(--dark);padding:40px 24px;text-align:center;}
+.testi-strip blockquote{font-size:clamp(15px,2.5vw,18px);color:rgba(255,255,255,.8);font-style:italic;max-width:620px;margin:0 auto 14px;line-height:1.7;}
+.testi-attr{font-size:13px;font-weight:700;color:rgba(255,255,255,.4);}
+.testi-stars{color:var(--gold);font-size:16px;letter-spacing:2px;margin-bottom:14px;}
+
+/* FINAL CTA */
+.final-cta{background:var(--gold);padding:44px 24px;text-align:center;}
+.final-cta h2{font-size:clamp(20px,3vw,28px);font-weight:900;color:#000;margin-bottom:8px;letter-spacing:-.02em;}
+.final-cta p{font-size:14.5px;color:rgba(0,0,0,.6);margin-bottom:22px;}
+.final-btns{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.btn-dark{display:inline-flex;align-items:center;gap:7px;background:#000;color:#fff;font-size:14px;font-weight:900;padding:12px 24px;border-radius:var(--r);transition:background .15s;}
+.btn-dark:hover{background:#222;}
+.btn-wa-inv{display:inline-flex;align-items:center;gap:7px;background:#fff;color:var(--wa);font-size:14px;font-weight:900;padding:12px 24px;border-radius:var(--r);transition:background .15s;}
+.btn-wa-inv:hover{background:#f0fff5;}
+
+/* FOOTER */
+.footer-mini{background:#0a0a0a;padding:20px 24px;text-align:center;}
+.footer-mini p{font-size:12px;color:rgba(255,255,255,.3);}
+.footer-mini a{color:rgba(255,255,255,.5);}
+.footer-mini a:hover{color:var(--gold);}
+
+/* MOB BAR */
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #333;padding:10px 16px;z-index:300;gap:8px;}
+@media(max-width:700px){.mob-bar{display:flex;}}
+.mob-bar a{flex:1;text-align:center;font-size:13px;font-weight:900;padding:12px;border-radius:var(--r);}
+.mob-call{background:var(--gold);color:#000;}
+.mob-wa-btn{background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;gap:5px;}
+@media(max-width:700px){body{padding-bottom:66px;}}
+
+/* WA SVG */
+.wa-svg{display:inline-block;vertical-align:middle;}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="solarprint-v2.html" class="logo">Solar Print Process</a>
+    <div class="nav-cta">
+      <a href="tel:+919871713676" class="btn-call">📞 +91 98717 13676</a>
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+submitted+a+form+and+need+a+quote" target="_blank" class="btn-wa-sm">WhatsApp Us</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO — THANK YOU -->
+<div class="ty-hero">
+  <div class="ty-check">
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <h1 class="ty-title">Thank You! Your Quote<br>Request is <em>Received.</em></h1>
+  <p class="ty-sub">Our packaging expert will call you within <strong style="color:#fff;">2 hours</strong> with factory-direct pricing — no middlemen, no markups.</p>
+  <div class="ty-badges">
+    <div class="ty-badge ty-badge-gold">⏱ Response within 2 hours</div>
+    <div class="ty-badge">🏭 Direct from factory</div>
+    <div class="ty-badge">📦 Free sample on first order</div>
+  </div>
+  <div class="ty-actions">
+    <a href="tel:+919871713676" class="btn-gold" onclick="gtag&&gtag('event','phone_call_click',{location:'thank_you_page'})">
+      📞 Call Us Now
+    </a>
+    <a href="https://wa.me/919871713676?text=Hello%2C+I+just+submitted+a+quote+request+on+your+website.+Please+call+me+back." target="_blank" class="btn-wa-lg" onclick="gtag&&gtag('event','whatsapp_click',{location:'thank_you_page'})">
+      <svg class="wa-svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Also WhatsApp Us
+    </a>
+  </div>
+</div>
+
+<!-- WHAT HAPPENS NEXT -->
+<div class="next-sec">
+  <div class="wrap">
+    <div style="text-align:center;">
+      <div class="lbl">What Happens Next</div>
+      <h2 class="h2">Here's What to Expect</h2>
+    </div>
+    <div class="next-grid">
+      <div class="next-card">
+        <div class="next-num">1</div>
+        <h3>Expert Calls You</h3>
+        <p>Our packaging specialist calls within 2 hours with a detailed quote and material options.</p>
+      </div>
+      <div class="next-card">
+        <div class="next-num">2</div>
+        <h3>Sample & Proof</h3>
+        <p>We send a digital proof and arrange a physical sample before any production begins.</p>
+      </div>
+      <div class="next-card">
+        <div class="next-num">3</div>
+        <h3>Factory Delivery</h3>
+        <p>Production starts post-approval. Pan-India delivery with full tracking. On time, every time.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRODUCTS — explore more -->
+<section class="prod-sec">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lbl">While You Wait</div>
+      <h2 class="h2">Explore Our <em>Packaging Products</em></h2>
+      <p class="sub">Browse what we make — tap any product to WhatsApp us directly.</p>
+    </div>
+    <div class="prod-grid">
+
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Mono+Cartons" target="_blank" class="prod-card" onclick="gtag&&gtag('event','product_card_click',{product_name:'Mono Cartons',page:'thank_you'})">
+        <img class="prod-img" src="https://images.unsplash.com/photo-1601598851547-4302969d0614?w=400&h=130&fit=crop&auto=format" alt="Mono Cartons">
+        <div class="prod-body">
+          <div class="prod-tag">FMCG · Pharma</div>
+          <h3>Mono Cartons</h3>
+          <p>Offset-printed folding cartons. All finishes. High-volume ready.</p>
+          <div class="prod-wa">WhatsApp for Quote →</div>
+        </div>
+      </a>
+
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Rigid+Boxes" target="_blank" class="prod-card" onclick="gtag&&gtag('event','product_card_click',{product_name:'Rigid Boxes',page:'thank_you'})">
+        <img class="prod-img" src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=400&h=130&fit=crop&auto=format" alt="Rigid Boxes">
+        <div class="prod-body">
+          <div class="prod-tag">Luxury · Gifting</div>
+          <h3>Rigid Boxes</h3>
+          <p>Premium setup boxes with magnetic closures. Gold foil & embossing.</p>
+          <div class="prod-wa">WhatsApp for Quote →</div>
+        </div>
+      </a>
+
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Cosmetic+Packaging" target="_blank" class="prod-card" onclick="gtag&&gtag('event','product_card_click',{product_name:'Cosmetic Packaging',page:'thank_you'})">
+        <img class="prod-img" src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=400&h=130&fit=crop&auto=format" alt="Cosmetic Packaging">
+        <div class="prod-body">
+          <div class="prod-tag">Beauty · Skincare</div>
+          <h3>Cosmetic Packaging</h3>
+          <p>Soft-touch lamination, hot foil, embossing. D2C beauty ready.</p>
+          <div class="prod-wa">WhatsApp for Quote →</div>
+        </div>
+      </a>
+
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Corrugated+Boxes" target="_blank" class="prod-card" onclick="gtag&&gtag('event','product_card_click',{product_name:'Corrugated Boxes',page:'thank_you'})">
+        <img class="prod-img" src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&h=130&fit=crop&auto=format" alt="Corrugated Boxes">
+        <div class="prod-body">
+          <div class="prod-tag">Shipping · Export</div>
+          <h3>Corrugated Boxes</h3>
+          <p>Custom printed corrugated for bulk dispatch and ecommerce fulfilment.</p>
+          <div class="prod-wa">WhatsApp for Quote →</div>
+        </div>
+      </a>
+
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Spirits+Packaging" target="_blank" class="prod-card" onclick="gtag&&gtag('event','product_card_click',{product_name:'Spirits Packaging',page:'thank_you'})">
+        <img class="prod-img" src="https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=400&h=130&fit=crop&auto=format" alt="Spirits Packaging">
+        <div class="prod-body">
+          <div class="prod-tag">Spirits · Premium</div>
+          <h3>Spirits & Liquor Packaging</h3>
+          <p>Rigid boxes and mono cartons for whisky, wine and premium spirits.</p>
+          <div class="prod-wa">WhatsApp for Quote →</div>
+        </div>
+      </a>
+
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Food+Packaging" target="_blank" class="prod-card" onclick="gtag&&gtag('event','product_card_click',{product_name:'Food Packaging',page:'thank_you'})">
+        <img class="prod-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=130&fit=crop&auto=format" alt="Food Packaging">
+        <div class="prod-body">
+          <div class="prod-tag">Bakery · FMCG</div>
+          <h3>Food Packaging</h3>
+          <p>Food-safe printed cartons for bakery, confectionery and snacks.</p>
+          <div class="prod-wa">WhatsApp for Quote →</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="testi-strip">
+  <div class="wrap" style="max-width:680px;">
+    <div class="testi-stars">★★★★★</div>
+    <blockquote>"Solar has been our primary packaging partner for 8 years. Their consistency, quality and on-time delivery is simply unmatched in the industry."</blockquote>
+    <div class="testi-attr">— VP Supply Chain, Leading FMCG Brand &nbsp;·&nbsp; 500+ B2B Clients Served</div>
+  </div>
+</div>
+
+<!-- FINAL CTA -->
+<div class="final-cta">
+  <div class="wrap">
+    <h2>Still Have Questions?</h2>
+    <p>Talk to our packaging expert directly — call or WhatsApp right now.</p>
+    <div class="final-btns">
+      <a href="tel:+919871713676" class="btn-dark" onclick="gtag&&gtag('event','phone_call_click',{location:'thank_you_final_cta'})">📞 Call +91 98717 13676</a>
+      <a href="https://wa.me/919871713676?text=Hi+Solar+Print%2C+I+have+a+question+about+packaging" target="_blank" class="btn-wa-inv" onclick="gtag&&gtag('event','whatsapp_click',{location:'thank_you_final_cta'})">
+        <svg class="wa-svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Now
+      </a>
+      <a href="solarprint-v2.html" class="btn-dark" style="background:#333;">← Back to Home</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-mini">
+  <p>© 2025 Solar Print Process Pvt. Ltd. · C-10, Sector 85, Noida ·
+    <a href="solarprint-v2.html">Home</a> ·
+    <a href="privacy-policy.html">Privacy</a> ·
+    <a href="terms.html">Terms</a>
+  </p>
+</div>
+
+<!-- MOBILE BAR -->
+<div class="mob-bar">
+  <a href="tel:+919871713676" class="mob-call">📞 Call Now</a>
+  <a href="https://wa.me/919871713676?text=Hello%2C+I+just+submitted+a+quote+request" target="_blank" class="mob-wa-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp
+  </a>
+</div>
+
+</body>
+</html>

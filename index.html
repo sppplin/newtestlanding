@@ -1,0 +1,3757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Packaging Manufacturer Since 1975 | Solar Print Process — Noida</title>
+<meta name="description" content="India's leading custom packaging manufacturer since 1975. Mono cartons, rigid boxes, cosmetic & pharma packaging. 200,000 sq ft Noida plant. Get a free quote in 2 hours.">
+<link rel="canonical" href="https://solarprint.com/">
+
+<!-- Schema -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"LocalBusiness","name":"Solar Print Process Pvt. Ltd.","url":"https://solarprint.com","telephone":"+919871713676","description":"India's leading custom packaging manufacturer since 1975. Mono cartons, rigid boxes, cosmetic & pharma packaging.","address":{"@type":"PostalAddress","streetAddress":"C-10, Sector 85","addressLocality":"Noida","addressRegion":"UP","postalCode":"201305","addressCountry":"IN"},"openingHours":"Mo-Sa 09:30-18:00","foundingDate":"1975","sameAs":["https://wa.me/919871713676"]}
+</script>
+
+<!-- Google Ads — replace ID -->
+<!--
+<!--
+  ╔══════════════════════════════════════════════════════╗
+  ║  GOOGLE ADS + GA4 TRACKING — REPLACE IDs BELOW      ║
+  ║  AW-CONVERSION_ID  = Your Google Ads account ID      ║
+  ║  GA4_MEASUREMENT_ID = Your GA4 property ID (G-XXXX)  ║
+  ║                                                      ║
+  ║  Conversion Label IDs — create these in Google Ads:  ║
+  ║  - LABEL_CALL        = Phone call click              ║
+  ║  - LABEL_WHATSAPP    = WhatsApp button click         ║
+  ║  - LABEL_FORM_LEAD   = Hero form submitted           ║
+  ║  - LABEL_CATALOGUE   = Catalogue download request    ║
+  ║  - LABEL_PRODUCT     = Product card click            ║
+  ║  - LABEL_QUOTE_MODAL = Quote modal form submitted    ║
+  ╚══════════════════════════════════════════════════════╝
+-->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-CONVERSION_ID"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+// ── Google Ads ──
+gtag('config', 'AW-CONVERSION_ID');
+
+// ── GA4 (optional but recommended) ──
+// gtag('config', 'G-GA4_MEASUREMENT_ID');
+
+// ══════════════════════════════════════════════
+// SOLAR PRINT — CONVERSION TRACKING LIBRARY
+// Central function — call SP.track(event, data)
+// ══════════════════════════════════════════════
+window.SP = {
+
+  // Conversion label map — replace LABEL_* with your actual labels from Google Ads
+  LABELS: {
+    call:         'AW-CONVERSION_ID/LABEL_CALL',
+    whatsapp:     'AW-CONVERSION_ID/LABEL_WHATSAPP',
+    form_lead:    'AW-CONVERSION_ID/LABEL_FORM_LEAD',
+    catalogue:    'AW-CONVERSION_ID/LABEL_CATALOGUE',
+    product_view: 'AW-CONVERSION_ID/LABEL_PRODUCT',
+    quote_modal:  'AW-CONVERSION_ID/LABEL_QUOTE_MODAL',
+    exit_intent:  'AW-CONVERSION_ID/LABEL_WHATSAPP'
+  },
+
+  // Fire Google Ads conversion
+  convert: function(labelKey, value) {
+    var label = SP.LABELS[labelKey];
+    if(!label || label.indexOf('LABEL_') > -1) return; // skip if not configured
+    gtag('event', 'conversion', {
+      send_to: label,
+      value: value || 1.0,
+      currency: 'INR'
+    });
+  },
+
+  // Fire GA4 event
+  event: function(eventName, params) {
+    gtag('event', eventName, params || {});
+  },
+
+  // Track phone call click
+  trackCall: function(location) {
+    SP.convert('call', 1.0);
+    SP.event('generate_lead', {
+      event_category: 'Contact',
+      event_label: 'Phone Call — ' + (location || 'Unknown'),
+      currency: 'INR'
+    });
+    SP.event('phone_call_click', { location: location });
+    console.log('[SP Track] Phone call:', location);
+  },
+
+  // Track WhatsApp click
+  trackWhatsApp: function(location, product) {
+    SP.convert('whatsapp', 1.0);
+    SP.event('generate_lead', {
+      event_category: 'Contact',
+      event_label: 'WhatsApp — ' + (location || 'Unknown'),
+      currency: 'INR'
+    });
+    SP.event('whatsapp_click', { location: location, product: product || '' });
+    console.log('[SP Track] WhatsApp:', location, product);
+  },
+
+  // Track hero form submission (primary conversion)
+  trackFormLead: function(productType, company) {
+    SP.convert('form_lead', 5.0);
+    SP.event('generate_lead', {
+      event_category: 'Lead Form',
+      event_label: 'Hero Form Submitted',
+      value: 5,
+      currency: 'INR'
+    });
+    SP.event('form_submit', {
+      form_name: 'hero_quote_form',
+      product_type: productType || '',
+      company: company || ''
+    });
+    console.log('[SP Track] Form Lead:', productType, company);
+  },
+
+  // Track catalogue download request
+  trackCatalogue: function(industry) {
+    SP.convert('catalogue', 2.0);
+    SP.event('generate_lead', {
+      event_category: 'Catalogue',
+      event_label: 'Catalogue Download — ' + (industry || 'Unknown'),
+      value: 2,
+      currency: 'INR'
+    });
+    SP.event('catalogue_request', { industry: industry || '' });
+    console.log('[SP Track] Catalogue:', industry);
+  },
+
+  // Track product card click (micro-conversion)
+  trackProductClick: function(productName) {
+    SP.convert('product_view', 0.5);
+    SP.event('view_item', {
+      event_category: 'Product',
+      event_label: productName,
+      items: [{ item_name: productName, item_category: 'Packaging' }]
+    });
+    SP.event('product_card_click', { product_name: productName });
+    console.log('[SP Track] Product view:', productName);
+  },
+
+  // Track quote modal form submission
+  trackQuoteModal: function(productName, company) {
+    SP.convert('quote_modal', 3.0);
+    SP.event('generate_lead', {
+      event_category: 'Quote Modal',
+      event_label: 'Quote Form — ' + (productName || 'Unknown'),
+      value: 3,
+      currency: 'INR'
+    });
+    SP.event('quote_form_submit', {
+      product_name: productName || '',
+      company: company || ''
+    });
+    console.log('[SP Track] Quote Modal:', productName, company);
+  },
+
+  // Track exit intent
+  trackExitIntent: function(action) {
+    SP.event('exit_intent', { action: action || 'shown' });
+    console.log('[SP Track] Exit Intent:', action);
+  }
+
+};
+</script>
+-->
+
+<!-- Roboto — clean, universal, readable on all devices -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET ─────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Roboto',Arial,Helvetica,sans-serif;
+  background:#fff;color:#1a1a1a;
+  font-size:15px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+a{color:inherit;text-decoration:none;}
+
+/* ─── TOKENS ────────────────────────────── */
+:root{
+  --gold:   #f0a500;
+  --gold2:  #ffc940;
+  --goldbg: #fff8e6;
+  --dark:   #111111;
+  --dark2:  #1c1c1c;
+  --ink:    #1a1a1a;
+  --ink2:   #3d3d3d;
+  --t3:     #777777;
+  --bg:     #ffffff;
+  --bg2:    #f7f4ef;
+  --bg3:    #faf7f2;
+  --border: #e8e3d8;
+  --border2:#ede9e0;
+  --wa:     #25D366;
+  --r:      4px;
+  --wrap:   1080px;
+  --sh:     0 2px 12px rgba(0,0,0,.08);
+}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px;}
+.lbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:8px;}
+.h2{font-size:clamp(22px,3.2vw,32px);font-weight:900;color:var(--ink);line-height:1.2;letter-spacing:-.02em;margin-bottom:10px;}
+.h2 em{font-style:normal;color:var(--gold);}
+.sub{font-size:15px;color:var(--t3);max-width:560px;line-height:1.7;}
+.sec{padding:60px 24px;}
+
+/* ─── TOPBAR ────────────────────────────── */
+.topbar{
+  background:var(--dark);color:rgba(255,255,255,.55);
+  font-size:12px;font-weight:500;
+  padding:8px 24px;
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;flex-wrap:wrap;text-align:center;
+}
+.topbar strong{color:var(--gold);}
+.topbar a{color:rgba(255,255,255,.75);transition:color .15s;}
+.topbar a:hover{color:var(--gold);}
+.sep{opacity:.2;}
+.reply-live{display:inline-flex;align-items:center;gap:6px;color:var(--wa);font-weight:700;font-size:12px;}
+.reply-dot{width:7px;height:7px;border-radius:50%;background:var(--wa);animation:blink 1.3s ease-in-out infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+
+/* ─── NAV ───────────────────────────────── */
+.nav{
+  background:#fff;border-bottom:1px solid var(--border2);
+  position:sticky;top:0;z-index:200;
+  box-shadow:0 1px 6px rgba(0,0,0,.06);
+}
+.nav-inner{
+  max-width:var(--wrap);margin:0 auto;
+  padding:0 24px;height:62px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.logo-name{font-size:17px;font-weight:900;color:var(--ink);letter-spacing:-.02em;display:block;}
+.site-logo-img{height:44px;width:auto;max-width:180px;object-fit:contain;display:block;}
+.logo-sub{font-size:10.5px;color:var(--t3);text-transform:uppercase;letter-spacing:.04em;font-weight:500;}
+.nav-acts{display:flex;align-items:center;gap:10px;}
+.btn-ghost{
+  font-size:13px;font-weight:700;color:var(--ink);
+  padding:8px 16px;border:1.5px solid var(--border);border-radius:var(--r);
+  display:flex;align-items:center;gap:7px;
+  transition:border-color .15s,background .15s;white-space:nowrap;
+}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold);}
+.btn-wa-nav{
+  font-size:13.5px;font-weight:700;color:#fff;
+  background:var(--wa);padding:9px 20px;border-radius:var(--r);
+  transition:background .15s,transform .12s;
+  white-space:nowrap;display:inline-flex;align-items:center;gap:7px;
+}
+.btn-wa-nav:hover{background:#1fba58;transform:translateY(-1px);}
+@media(max-width:540px){.btn-ghost{display:none;}.logo-sub{display:none;}}
+
+/* ═══════════════════════════════════════════
+   HERO — CLEAN MOBILE-FIRST (no overrides needed)
+════════════════════════════════════════════ */
+
+/* ── HERO SHELL ── */
+.hero{
+  position:relative;
+  background:linear-gradient(160deg,#0d0d0d 0%,#151008 55%,#1a1200 100%);
+  overflow:hidden;
+}
+.hero-bg-img{
+  position:absolute;inset:0;z-index:0;
+  background:url("https://static.wixstatic.com/media/895e2c_df1ccb10ef894738b00c7603b847278d~mv2.webp") center/cover no-repeat;
+  opacity:.28;
+}
+.hero-overlay{
+  position:absolute;inset:0;z-index:1;
+  background:rgba(0,0,0,.55);
+}
+
+/* ── HERO INNER — mobile-first single column ── */
+.hero-inner{
+  position:relative;z-index:2;
+  width:100%;
+  /* NO max-width — hero goes full width on desktop */
+  margin:0 auto;
+  padding:40px 16px 90px;
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  box-sizing:border-box;
+}
+
+/* Tablet: start grid layout */
+@media(min-width:900px){
+  .hero-inner{
+    display:grid;
+    grid-template-columns:1fr 420px;
+    gap:48px;
+    align-items:center;
+    padding:72px 5% 64px;
+    max-width:1400px;
+    margin:0 auto;
+  }
+}
+
+/* ── LEFT CONTENT ── */
+.hero-left{ width:100%; }
+
+/* live badge */
+.live-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);
+  padding:5px 12px;border-radius:3px;
+  font-size:12px;font-weight:700;color:#4ade80;
+  margin-bottom:12px;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:blink 1.3s infinite;}
+
+/* brand trust tag */
+.hero-tag{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:700;color:var(--gold);
+  background:rgba(240,165,0,.1);border:1px solid rgba(240,165,0,.3);
+  padding:5px 13px;border-radius:3px;
+  margin-bottom:14px;
+}
+.hero-tag-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);}
+
+/* headline */
+.hero h1{
+  font-size:clamp(28px,8vw,54px);
+  font-weight:900;color:#fff;
+  line-height:1.08;letter-spacing:-.025em;
+  margin-bottom:12px;
+}
+.hero h1 em{font-style:normal;color:var(--gold);}
+
+/* sub-desc */
+.hero-desc{
+  font-size:14.5px;color:rgba(255,255,255,.65);
+  line-height:1.7;margin-bottom:16px;
+}
+
+/* ── PRODUCT CHIPS — horizontal scroll ── */
+.chips{
+  display:flex;flex-wrap:nowrap;gap:6px;
+  overflow-x:auto;-webkit-overflow-scrolling:touch;
+  padding-bottom:4px;scrollbar-width:none;
+  margin-bottom:20px;
+}
+.chips::-webkit-scrollbar{display:none;}
+.chip{
+  font-size:12px;font-weight:700;
+  color:rgba(255,255,255,.7);
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.18);
+  padding:6px 13px;border-radius:3px;
+  white-space:nowrap;flex-shrink:0;cursor:pointer;
+  transition:background .15s,border-color .15s,color .15s;
+  text-decoration:none;display:inline-block;
+}
+.chip:hover{background:rgba(240,165,0,.15);border-color:var(--gold);color:var(--gold);}
+
+/* ── HERO STATS — 3-col grid on mobile, 5-col on desktop ── */
+.hero-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin-top:20px;padding-top:18px;
+  border-top:1px solid rgba(255,255,255,.1);
+  width:100%;
+}
+@media(min-width:700px){
+  .hero-stats{
+    grid-template-columns:repeat(6,1fr);
+    gap:0;
+  }
+}
+.hero-stat{
+  background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:7px;
+  padding:10px 10px;
+}
+@media(min-width:700px){
+  .hero-stat{
+    background:none;border:none;border-radius:0;
+    padding:0 12px 0 0;
+    border-right:1px solid rgba(255,255,255,.1);
+  }
+  .hero-stat:last-child{border-right:none;padding-right:0;}
+}
+.hero-stat-n{
+  font-size:20px;font-weight:900;color:var(--gold);
+  letter-spacing:-.04em;line-height:1;
+}
+.hero-stat-l{
+  font-size:10px;color:rgba(255,255,255,.5);
+  margin-top:3px;font-weight:500;line-height:1.3;
+}
+
+/* ── HERO CLIENT SLIDER ── */
+.hero-client-slider{
+  margin-top:20px;
+  border-top:1px solid rgba(255,255,255,.12);
+  padding-top:14px;
+}
+.hcs-label{
+  font-size:10px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.6);
+  margin-bottom:10px;
+}
+.hcs-track-wrap{
+  overflow:hidden;
+  mask-image:linear-gradient(to right,transparent 0%,#000 5%,#000 95%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 5%,#000 95%,transparent 100%);
+}
+.hcs-track{
+  display:flex;align-items:center;gap:10px;
+  width:max-content;
+  animation:hcsScroll 32s linear infinite;
+}
+.hcs-track:hover{animation-play-state:paused;}
+@keyframes hcsScroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.hcs-logo{
+  background:#fff;
+  border:1.5px solid rgba(0,0,0,.08);
+  border-radius:7px;
+  height:40px;min-width:80px;
+  padding:0 12px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.hcs-logo img{height:24px;width:auto;max-width:68px;object-fit:contain;display:block;}
+
+/* ── RIGHT FORM COL ── */
+.hero-right{width:100%;margin-top:8px;}
+@media(min-width:900px){.hero-right{margin-top:0;}}
+
+/* ════════════════════════════════════════════ */
+
+/* ─── HERO FORM (RIGHT SIDE) ─────────────── */
+/* Google Ads Hack: Micro-commitment — show 1 field, expand on submit */
+.hero-form-card{
+  background:#fff;border-radius:10px;
+  padding:24px 20px;
+  box-shadow:0 8px 32px rgba(0,0,0,.35);
+  border-top:4px solid var(--gold);
+  width:100%;
+  box-sizing:border-box;
+}
+.hfc-title{
+  font-size:17px;font-weight:900;color:var(--ink);
+  line-height:1.25;margin-bottom:4px;letter-spacing:-.02em;
+}
+.hfc-sub{font-size:12.5px;color:var(--t3);margin-bottom:20px;line-height:1.5;}
+
+/* Step indicators */
+.step-dots{display:flex;gap:6px;margin-bottom:20px;}
+.step-dot{
+  height:3px;border-radius:2px;background:var(--border);
+  flex:1;transition:background .3s;
+}
+.step-dot.active{background:var(--gold);}
+
+.form-step{display:none;}
+.form-step.active{display:block;}
+
+/* product selector chips inside form */
+.form-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px;}
+.form-chip{
+  font-size:12px;font-weight:700;color:var(--ink2);
+  background:var(--bg2);border:1.5px solid var(--border2);
+  padding:6px 11px;border-radius:var(--r);cursor:pointer;
+  transition:all .15s;user-select:none;
+}
+.form-chip.selected,.form-chip:hover{
+  background:var(--goldbg);border-color:var(--gold);color:#8a5c00;
+}
+
+.fg{margin-bottom:12px;}
+.fg label{display:block;font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:4px;}
+.fg input,.fg select,.fg textarea{
+  width:100%;padding:11px 13px;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  font-family:'Roboto',Arial,sans-serif;
+  font-size:14px;color:var(--ink);
+  transition:border-color .15s;outline:none;background:#fff;
+}
+.fg input:focus,.fg select:focus{border-color:var(--gold);}
+.fg.row{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+
+/* THE GOLD CTA BUTTON */
+.btn-cta-hero{
+  width:100%;padding:15px;
+  background:var(--gold);color:#000;
+  border:none;border-radius:var(--r);
+  font-family:'Roboto',Arial,sans-serif;
+  font-size:15px;font-weight:900;
+  cursor:pointer;transition:background .15s,transform .12s;
+  letter-spacing:-.01em;
+}
+.btn-cta-hero:hover{background:var(--gold2);transform:translateY(-1px);}
+
+.form-privacy{
+  font-size:11px;color:var(--t3);text-align:center;margin-top:10px;line-height:1.5;
+}
+.form-privacy a{color:var(--gold);text-decoration:underline;}
+
+/* social proof below form */
+.hfc-proof{
+  display:flex;align-items:center;gap:8px;
+  border-top:1px solid var(--border2);margin-top:16px;padding-top:14px;
+}
+.hfc-avatars{display:flex;}
+.hfc-av{
+  width:26px;height:26px;border-radius:50%;
+  border:2px solid #fff;margin-left:-6px;
+  background:var(--gold);color:#000;
+  font-size:10px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;
+}
+.hfc-av:first-child{margin-left:0;}
+.hfc-proof-text{font-size:11.5px;color:var(--t3);line-height:1.4;}
+.hfc-proof-text strong{color:var(--ink);font-weight:700;}
+
+/* ─── STATS BAR ─────────────────────────── */
+.statsbar{background:var(--gold);padding:0;border:none;}
+.stats-grid{
+  max-width:var(--wrap);margin:0 auto;
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:rgba(0,0,0,.1);
+}
+@media(min-width:600px){.stats-grid{grid-template-columns:repeat(6,1fr);}}
+.stat{background:var(--gold);padding:16px 20px;text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;}
+.stat-n{font-size:13px;font-weight:900;color:#000;line-height:1;white-space:nowrap;}
+.stat-icon{font-size:16px;}
+
+/* ─── PRODUCTS ──────────────────────────── */
+.prod-sec{background:#fff;}
+.prod-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:32px;
+}
+@media(min-width:600px){.prod-grid{grid-template-columns:repeat(3,1fr);}}
+@media(min-width:900px){.prod-grid{grid-template-columns:repeat(4,1fr);}}
+.prod-card{
+  border:1.5px solid var(--border2);border-radius:8px;overflow:hidden;
+  background:#fff;transition:box-shadow .18s,border-color .18s,transform .15s;
+  display:block;
+}
+.prod-card:hover{border-color:var(--wa);transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.12);}
+.prod-img{
+  background:var(--bg2);height:120px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:42px;border-bottom:1.5px solid var(--border2);
+}
+.prod-body{padding:14px 16px;}
+.prod-body h3{font-size:13.5px;font-weight:900;color:var(--ink);margin-bottom:5px;}
+.prod-body p{font-size:12px;color:var(--t3);line-height:1.55;}
+.prod-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.tag{
+  font-size:10.5px;font-weight:700;
+  background:var(--goldbg);color:#8a5c00;
+  padding:2px 8px;border-radius:3px;border:1px solid #f0d080;
+}
+.prod-wa-cta{margin-top:10px;font-size:11.5px;font-weight:700;color:var(--wa);}
+.prod-card:hover .prod-wa-cta{text-decoration:underline;}
+
+/* ─── CATALOGUE SECTION ─────────────────── */
+/* THE LEAD MAGNET HACK — gated content = easiest lead */
+.cat-sec{
+  background:#fff;
+  border-top:1.5px solid var(--border2);
+  border-bottom:1.5px solid var(--border2);
+  padding:60px 24px;
+}
+.cat-inner{
+  max-width:var(--wrap);margin:0 auto;
+  display:grid;grid-template-columns:1fr 420px;
+  gap:50px;align-items:center;
+}
+@media(max-width:700px){.cat-inner{grid-template-columns:1fr;}}
+.cat-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;}
+.cat-title{font-size:clamp(22px,3vw,32px);font-weight:900;color:var(--ink);line-height:1.15;margin-bottom:12px;letter-spacing:-.02em;}
+.cat-title em{font-style:normal;color:var(--gold);}
+.cat-desc{font-size:15px;color:var(--t3);line-height:1.7;margin-bottom:24px;}
+.cat-includes{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;
+}
+.cat-inc-item{
+  display:flex;align-items:flex-start;gap:8px;
+  font-size:13px;color:var(--ink2);line-height:1.4;
+}
+.cat-check{color:var(--gold);font-weight:900;flex-shrink:0;margin-top:1px;}
+
+/* catalogue preview cards */
+.cat-preview{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px;
+}
+.cat-card{
+  background:#fff;
+  border:1.5px solid var(--border2);
+  border-radius:8px;padding:16px 14px;
+  text-align:center;
+  transition:border-color .2s;
+}
+.cat-card:hover{border-color:var(--gold);}
+.cat-card-icon{font-size:28px;margin-bottom:8px;}
+.cat-card-title{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:4px;}
+.cat-card-sub{font-size:11px;color:var(--t3);}
+
+/* catalogue download form */
+.cat-form-box{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(240,165,0,.25);
+  border-radius:8px;padding:24px;
+  margin-top:28px;
+}
+.cat-form-title{font-size:14px;font-weight:700;color:#fff;margin-bottom:14px;}
+/* cat form inputs use default .fg input styles on white bg */
+.btn-dl{
+  width:100%;padding:13px;
+  background:var(--gold);color:#000;
+  border:none;border-radius:var(--r);
+  font-family:'Roboto',Arial,sans-serif;
+  font-size:14px;font-weight:900;cursor:pointer;
+  transition:background .15s;margin-top:4px;
+}
+.btn-dl:hover{background:var(--gold2);}
+.cat-note{font-size:11px;color:rgba(255,255,255,.3);margin-top:8px;text-align:center;}
+
+/* ─── INDUSTRIES ────────────────────────── */
+.ind-wrap{background:var(--bg2);border-top:1.5px solid var(--border2);border-bottom:1.5px solid var(--border2);}
+.ind-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:28px;
+}
+@media(min-width:600px){.ind-grid{grid-template-columns:repeat(4,1fr);}}
+@media(min-width:900px){.ind-grid{grid-template-columns:repeat(5,1fr);}}
+.ind-item{
+  background:#fff;border:1.5px solid var(--border2);border-radius:8px;
+  padding:16px 12px;font-size:12.5px;font-weight:700;color:var(--ink2);
+  text-align:center;transition:border-color .15s,color .15s,background .15s;
+  display:flex;flex-direction:column;align-items:center;gap:10px;cursor:default;
+}
+.ind-item:hover{border-color:var(--gold);color:var(--gold);background:var(--goldbg);}
+.ind-icon{
+  display:flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:10px;
+  background:rgba(240,165,0,.08);
+  color:var(--gold);
+  transition:background .15s,color .15s;
+  flex-shrink:0;
+}
+.ind-item:hover .ind-icon{background:rgba(240,165,0,.18);color:#8a5c00;}
+
+/* ─── WHY US ─────────────────────────────── */
+.why-sec{background:#fff;}
+.why-grid{
+  display:grid;grid-template-columns:1fr;
+  gap:1px;border:1.5px solid var(--border2);border-radius:8px;
+  overflow:hidden;margin-top:36px;background:var(--border2);
+}
+@media(min-width:640px){.why-grid{grid-template-columns:repeat(2,1fr);}}
+.why-item{background:#fff;padding:26px 24px;}
+.why-n{font-size:11px;font-weight:700;color:var(--gold);letter-spacing:.06em;margin-bottom:10px;}
+.why-item h3{font-size:15px;font-weight:900;color:var(--ink);margin-bottom:6px;}
+.why-item p{font-size:13.5px;color:var(--t3);line-height:1.65;}
+
+
+/* ─── FACTORY GALLERY ────────────────────── */
+.fac-sec{background:var(--bg2);padding:60px 24px;border-top:1.5px solid var(--border2);border-bottom:1.5px solid var(--border2);}
+
+/* Two video cards side by side */
+.fac-video-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-bottom:14px;
+}
+@media(max-width:700px){.fac-video-grid{grid-template-columns:1fr;}}
+
+.fac-vid-card{
+  border-radius:10px;overflow:hidden;
+  position:relative;
+  background:#000;
+  height:280px;
+}
+.fac-vid-card video{
+  width:100%;height:100%;object-fit:cover;display:block;
+}
+
+/* Caption overlay */
+.fac-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(to top,rgba(0,0,0,.85) 0%,transparent 100%);
+  padding:22px 16px 14px;
+  display:flex;align-items:flex-end;gap:10px;
+  pointer-events:none;
+}
+.fac-cap-icon{font-size:18px;line-height:1;flex-shrink:0;}
+.fac-cap-title{font-size:13px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:2px;}
+.fac-cap-sub{font-size:11px;color:rgba(255,255,255,.65);}
+
+/* Banner image + stats row */
+.fac-banner-row{
+  display:grid;
+  grid-template-columns:1fr 220px;
+  gap:14px;
+  align-items:stretch;
+}
+@media(max-width:700px){.fac-banner-row{grid-template-columns:1fr;}}
+
+.fac-banner-img{
+  border-radius:10px;overflow:hidden;
+  position:relative;min-height:220px;
+}
+.fac-banner-img img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  min-height:220px;
+}
+.fac-banner-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    120deg,
+    rgba(0,0,0,.78) 0%,
+    rgba(0,0,0,.45) 60%,
+    transparent 100%
+  );
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  padding:28px 28px;
+}
+.fac-banner-tag{
+  font-size:10.5px;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:8px;
+}
+.fac-banner-headline{
+  font-size:clamp(18px,2.5vw,26px);
+  font-weight:900;color:#fff;
+  line-height:1.2;letter-spacing:-.02em;
+  margin-bottom:18px;
+}
+.fac-banner-btn{
+  display:inline-flex;align-items:center;
+  background:var(--gold);color:#000;
+  font-size:13px;font-weight:900;
+  padding:10px 20px;border-radius:var(--r);
+  text-decoration:none;transition:background .15s;
+  width:fit-content;
+}
+.fac-banner-btn:hover{background:var(--gold2);}
+
+/* 4 stat boxes stacked */
+.fac-stats-col{
+  display:grid;
+  grid-template-rows:repeat(4,1fr);
+  gap:8px;
+}
+.fac-stat-box{
+  background:#fff;border:1.5px solid var(--border2);
+  border-radius:8px;
+  padding:12px 14px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.fac-stat-n{font-size:22px;font-weight:900;color:var(--ink);letter-spacing:-.04em;line-height:1;}
+.fac-stat-l{font-size:11.5px;font-weight:700;color:var(--ink2);margin-top:2px;}
+.fac-stat-sub{font-size:10px;color:var(--t3);margin-top:1px;}
+
+/* ─── PROCESS ────────────────────────────── */
+.proc-wrap{background:var(--bg2);border-top:1.5px solid var(--border2);border-bottom:1.5px solid var(--border2);}
+.proc-steps{display:grid;grid-template-columns:1fr;gap:12px;margin-top:36px;}
+@media(min-width:640px){.proc-steps{grid-template-columns:repeat(4,1fr);}}
+.pstep{
+  background:#fff;border:1.5px solid var(--border2);border-radius:8px;
+  padding:22px;position:relative;overflow:hidden;
+}
+.pstep::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);}
+.pstep-badge{font-size:10.5px;font-weight:700;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin-bottom:10px;}
+.pstep-n{font-size:36px;font-weight:900;color:var(--border);letter-spacing:-.05em;line-height:1;margin-bottom:6px;}
+.pstep h3{font-size:14px;font-weight:900;color:var(--ink);margin-bottom:6px;}
+.pstep p{font-size:13px;color:var(--t3);line-height:1.55;}
+
+/* ─── CLIENTS ────────────────────────────── */
+.client-sec{background:#fff;}
+.brand-tier-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:28px;}
+@media(min-width:700px){.brand-tier-grid{grid-template-columns:repeat(3,1fr);}}
+.brand-tier-card{
+  border:1.5px solid var(--border2);border-radius:8px;padding:22px;background:var(--bg2);
+}
+.btc-dark{background:var(--ink);border-color:var(--ink);}
+.btc-header{
+  display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;
+  padding-bottom:16px;border-bottom:1.5px solid var(--border2);
+}
+.btc-dark .btc-header{border-bottom-color:rgba(255,255,255,.08);}
+.btc-icon{font-size:22px;line-height:1;flex-shrink:0;margin-top:2px;}
+.btc-cat{font-size:13px;font-weight:900;color:var(--ink);}
+.btc-dark .btc-cat{color:#fff;}
+.btc-note{font-size:12px;color:var(--t3);margin-top:2px;}
+.btc-dark .btc-note{color:rgba(255,255,255,.35);}
+.btc-brands{display:flex;flex-wrap:wrap;gap:6px;}
+.btc-brand{
+  font-size:12px;font-weight:700;color:var(--ink2);
+  background:#fff;border:1.5px solid var(--border2);
+  padding:4px 11px;border-radius:3px;
+}
+.btc-testimonial p{font-size:14px;color:rgba(255,255,255,.75);line-height:1.7;font-style:italic;margin-bottom:14px;}
+.btc-author{font-size:12px;font-weight:700;color:rgba(255,255,255,.4);}
+.btc-stars{font-size:14px;letter-spacing:2px;margin-bottom:12px;color:var(--gold);}
+
+/* ticker */
+.ticker-wrap{margin-top:8px;}
+.ticker-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--t3);margin-bottom:10px;}
+.ticker-track{overflow:hidden;border:1.5px solid var(--border2);border-radius:var(--r);background:var(--bg2);padding:10px 0;}
+.ticker-inner{display:flex;align-items:center;gap:20px;width:max-content;animation:ticker 28s linear infinite;}
+.ticker-inner span{font-size:13px;font-weight:700;color:var(--ink2);white-space:nowrap;}
+.t-dot{color:var(--gold);opacity:.7;font-size:16px !important;font-weight:900 !important;}
+@keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* ─── CLIENT LOGO GRID ───────────────────── */
+.client-logo-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(110px,1fr));
+  gap:14px;
+  margin-bottom:32px;
+}
+@media(max-width:900px){.client-logo-grid{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:540px){.client-logo-grid{grid-template-columns:repeat(3,1fr);gap:10px;}}
+
+.cl-card{
+  background:#fff;
+  border:1.5px solid var(--border2);
+  border-radius:12px;
+  padding:0;
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+  overflow:hidden;
+  transition:border-color .2s,box-shadow .2s,transform .2s;
+  cursor:default;
+}
+.cl-card:hover{
+  border-color:var(--gold);
+  box-shadow:0 8px 28px rgba(240,165,0,.16);
+  transform:translateY(-3px);
+}
+
+/* image area — white bg, fixed height, center-crops */
+.cl-img-wrap{
+  background:#fff;
+  height:80px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:14px 12px;
+  border-bottom:1px solid var(--border2);
+}
+.cl-img-wrap img{
+  max-height:48px;
+  max-width:100%;
+  width:auto;
+  height:auto;
+  object-fit:contain;
+  display:block;
+  /* NO grayscale — show full color */
+}
+
+/* always-visible brand name */
+.cl-name{
+  font-size:11px;
+  font-weight:700;
+  color:var(--ink2);
+  text-align:center;
+  padding:7px 8px 4px;
+  letter-spacing:.01em;
+  line-height:1.2;
+}
+
+/* category tag */
+.cl-tag{
+  font-size:9.5px;
+  font-weight:700;
+  text-align:center;
+  color:rgba(0,0,0,.38);
+  background:var(--bg2);
+  padding:3px 8px 5px;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+/* client quote strip */
+.client-quote-strip{
+  background:var(--dark);
+  border-radius:10px;
+  padding:24px 28px;
+  margin-bottom:24px;
+  text-align:center;
+}
+.cqs-stars{font-size:16px;letter-spacing:3px;color:var(--gold);margin-bottom:10px;}
+.cqs-text{
+  font-size:14.5px;color:rgba(255,255,255,.78);
+  line-height:1.7;font-style:italic;margin-bottom:10px;
+}
+.cqs-author{font-size:12px;font-weight:700;color:rgba(255,255,255,.35);}
+
+/* ─── CAPABILITIES ───────────────────────── */
+.cap-sec{background:var(--bg2);border-top:1.5px solid var(--border2);border-bottom:1.5px solid var(--border2);}
+.cap-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--border2);
+  border:1.5px solid var(--border2);border-radius:8px;overflow:hidden;
+}
+@media(min-width:700px){.cap-grid{grid-template-columns:repeat(3,1fr);}}
+.cap-card{background:#fff;padding:22px;}
+.cap-icon{font-size:20px;font-weight:900;color:var(--gold);margin-bottom:10px;line-height:1;}
+.cap-card h3{font-size:14px;font-weight:900;color:var(--ink);margin-bottom:6px;}
+.cap-card p{font-size:13px;color:var(--t3);line-height:1.6;}
+
+/* ─── TESTIMONIALS ───────────────────────── */
+.testi-sec{background:#fff;}
+.testi-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:32px;}
+@media(min-width:700px){.testi-grid{grid-template-columns:repeat(3,1fr);}}
+.testi-card{border:1.5px solid var(--border2);border-radius:8px;padding:24px;background:var(--bg2);}
+.testi-stars{font-size:14px;letter-spacing:2px;color:var(--gold);margin-bottom:12px;}
+.testi-card blockquote{font-size:14px;color:var(--ink2);line-height:1.7;font-style:italic;margin-bottom:18px;}
+.testi-auth{display:flex;align-items:center;gap:10px;}
+.testi-initial{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--gold);color:#000;
+  font-size:15px;font-weight:900;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.testi-name{font-size:13.5px;font-weight:900;color:var(--ink);}
+.testi-co{font-size:12px;color:var(--t3);margin-top:1px;}
+
+/* ─── BOTTOM CTA ─────────────────────────── */
+.btm{background:var(--ink);padding:64px 24px;text-align:center;}
+.btm .h2{color:#fff;}
+.btm .h2 em{color:var(--gold);}
+.btm .sub{color:rgba(255,255,255,.5);margin:12px auto 28px;}
+.btm-acts{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px;}
+.btn-wht{
+  background:var(--gold);color:#000;font-size:15px;font-weight:900;
+  padding:14px 34px;border-radius:var(--r);transition:background .15s,transform .12s;display:inline-block;
+}
+.btn-wht:hover{background:var(--gold2);transform:translateY(-1px);}
+.btn-wa{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:14px;font-weight:700;color:#fff;
+  background:var(--wa);padding:12px 22px;
+  border-radius:var(--r);transition:background .15s;white-space:nowrap;
+}
+.btn-wa:hover{background:#1fba58;}
+.btm-note{font-size:12.5px;color:rgba(255,255,255,.35);margin-top:16px;}
+
+/* ─── FOOTER ─────────────────────────────── */
+.footer{background:#0a0a0a;border-top:1px solid rgba(240,165,0,.15);padding:40px 24px 24px;}
+.footer-inner{max-width:var(--wrap);margin:0 auto;}
+.f-brand-name{font-size:15px;font-weight:900;color:#fff;margin-bottom:6px;}
+.f-brand-sub{font-size:12.5px;color:rgba(255,255,255,.4);line-height:1.75;margin-bottom:14px;}
+.f-links a{display:block;color:rgba(255,255,255,.5);font-size:13px;line-height:2.2;transition:color .15s;}
+.f-links a:hover{color:var(--gold);}
+.f-col-title{font-size:11px;font-weight:700;color:rgba(255,255,255,.25);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;}
+.f-kw-links a{display:block;font-size:12.5px;color:rgba(255,255,255,.38);line-height:2.1;font-weight:500;transition:color .15s;}
+.f-kw-links a:hover{color:var(--gold);}
+.footer-bottom{
+  max-width:var(--wrap);margin:24px auto 0;
+  padding-top:18px;border-top:1px solid rgba(255,255,255,.06);
+  font-size:12px;color:rgba(255,255,255,.25);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
+}
+.footer-bottom a{color:rgba(255,255,255,.45);transition:color .15s;}
+.footer-bottom a:hover{color:var(--gold);}
+
+/* ─── STICKY MOBILE ──────────────────────── */
+.mob-bar{display:none;position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #333;padding:10px 16px;z-index:300;gap:8px;}
+@media(max-width:700px){.mob-bar{display:flex;}}
+.mob-bar a{flex:1;text-align:center;font-size:13px;font-weight:900;padding:12px 8px;border-radius:var(--r);}
+.mob-quote{background:var(--gold);color:#000;}
+.mob-wa{background:var(--wa);color:#fff;display:flex;align-items:center;justify-content:center;gap:5px;}
+
+/* ─── EXIT INTENT POPUP ──────────────────── */
+/* Google Ads Hack: capture about-to-leave visitors */
+.ei-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.7);z-index:500;
+  align-items:center;justify-content:center;padding:20px;
+}
+.ei-overlay.open{display:flex;}
+.ei-box{
+  background:#fff;border-radius:8px;
+  border-top:4px solid var(--gold);
+  padding:32px 28px;max-width:420px;width:100%;
+  position:relative;
+}
+.ei-close{
+  position:absolute;top:12px;right:14px;
+  font-size:20px;cursor:pointer;color:var(--t3);background:none;border:none;
+  font-family:'Roboto',Arial,sans-serif;
+}
+.ei-icon{font-size:32px;margin-bottom:12px;}
+.ei-title{font-size:20px;font-weight:900;color:var(--ink);line-height:1.2;margin-bottom:8px;letter-spacing:-.02em;}
+.ei-title em{font-style:normal;color:var(--gold);}
+.ei-sub{font-size:13px;color:var(--t3);margin-bottom:20px;line-height:1.6;}
+.ei-form input{
+  width:100%;padding:12px 13px;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  font-family:'Roboto',Arial,sans-serif;
+  font-size:14px;color:var(--ink);outline:none;margin-bottom:10px;
+}
+.ei-form input:focus{border-color:var(--gold);}
+.ei-btn{
+  width:100%;padding:13px;
+  background:var(--gold);color:#000;border:none;
+  border-radius:var(--r);
+  font-family:'Roboto',Arial,sans-serif;
+  font-size:14px;font-weight:900;cursor:pointer;
+  transition:background .15s;
+}
+.ei-btn:hover{background:var(--gold2);}
+.ei-skip{font-size:12px;color:var(--t3);text-align:center;margin-top:12px;cursor:pointer;text-decoration:underline;}
+
+/* ─── TOAST ─────────────────────────────── */
+.toast{
+  position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+  background:#111;color:#fff;
+  padding:11px 22px;border-radius:50px;
+  font-size:13px;font-weight:700;
+  opacity:0;transition:all .35s;z-index:400;pointer-events:none;
+  white-space:nowrap;border:1px solid rgba(240,165,0,.3);
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* ─── PLATFORM AVAILABILITY STRIP ───────── */
+.platform-strip{
+  background:#fff;
+  border-top:1.5px solid var(--border2);
+  border-bottom:1.5px solid var(--border2);
+  padding:0;
+  overflow:hidden;
+}
+.platform-strip-inner{
+  max-width:var(--wrap);margin:0 auto;
+  display:flex;align-items:center;
+  height:86px;gap:0;
+  padding:0 24px;
+}
+.platform-divider{
+  width:1px;height:44px;
+  background:var(--border2);
+  flex-shrink:0;margin:0 20px;
+}
+
+/* LEFT LABEL */
+.platform-label-col{flex-shrink:0;}
+.platform-label-top{
+  font-size:9px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--t3);
+  margin-bottom:2px;
+}
+.platform-label-main{
+  font-size:15px;font-weight:900;color:var(--ink);
+  line-height:1;letter-spacing:-.02em;
+}
+.platform-label-sub{
+  font-size:10px;font-weight:600;color:var(--gold);
+  margin-top:2px;letter-spacing:.03em;
+}
+
+/* SCROLLING LOGOS AREA */
+.platform-logos-wrap{
+  flex:1;overflow:hidden;
+  position:relative;
+  /* fade edges */
+  mask-image:linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+  -webkit-mask-image:linear-gradient(to right, transparent 0%, #000 4%, #000 96%, transparent 100%);
+}
+.platform-track{
+  display:flex;align-items:center;gap:12px;
+  width:max-content;
+  animation:platformScroll 42s linear infinite;
+}
+.platform-track:hover{animation-play-state:paused;}
+@keyframes platformScroll{
+  0%  {transform:translateX(0);}
+  100%{transform:translateX(-50%);}
+}
+
+/* IMAGE logo cards */
+
+.plogo-card{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;
+  height:52px;min-width:80px;
+  padding:0 14px;
+  background:#fff;
+  border:1.5px solid var(--border2);
+  border-radius:6px;
+  flex-shrink:0;
+  transition:border-color .2s,box-shadow .2s;
+  cursor:pointer;
+  text-decoration:none;
+}
+.plogo-card:hover{
+  border-color:var(--gold);
+  box-shadow:0 2px 12px rgba(240,165,0,.15);
+}
+.plogo-card img{
+  height:20px;
+  width:auto;
+  max-width:80px;
+  object-fit:contain;
+  display:block;
+  transition:opacity .2s;
+}
+.plogo-card:hover img{opacity:1;}
+.plogo-name{
+  font-size:9px;font-weight:700;color:var(--t3);
+  white-space:nowrap;letter-spacing:.03em;
+  line-height:1;
+}
+
+/* TEXT pill platforms */
+.plogo-pill{
+  display:inline-flex;align-items:center;
+  height:36px;padding:0 14px;
+  background:var(--bg2);
+  border:1.5px solid var(--border2);
+  border-radius:6px;
+  font-size:11.5px;font-weight:700;color:var(--ink2);
+  white-space:nowrap;flex-shrink:0;
+  transition:background .15s,border-color .15s,color .15s;
+}
+.plogo-pill:hover{
+  background:var(--goldbg);border-color:var(--gold);color:#8a5c00;
+}
+
+/* RIGHT BADGE */
+.platform-badge-col{flex-shrink:0;}
+.platform-verified{
+  display:flex;align-items:center;gap:10px;
+}
+.pv-icon{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--gold);color:#000;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;font-weight:900;flex-shrink:0;
+}
+.pv-title{font-size:12px;font-weight:900;color:var(--ink);line-height:1;}
+.pv-sub{font-size:10.5px;color:var(--t3);margin-top:2px;}
+
+/* Responsive: stack on small screens */
+@media(max-width:768px){
+  .platform-strip-inner{height:auto;padding:14px 20px;flex-wrap:wrap;gap:12px;}
+  .platform-divider{display:none;}
+  .platform-label-col{width:auto;}
+  .platform-badge-col{display:none;}
+  .platform-logos-wrap{width:100%;order:3;flex:unset;}
+}
+
+
+/* ─── PRODUCT CARD UPDATES ───────────────── */
+.prod-card{
+  border:1.5px solid var(--border2);border-radius:8px;overflow:hidden;
+  background:#fff;transition:box-shadow .18s,border-color .18s,transform .15s;
+  cursor:pointer;
+}
+.prod-card:hover{border-color:var(--gold);transform:translateY(-2px);box-shadow:0 8px 28px rgba(240,165,0,.14);}
+.prod-img-wrap{position:relative;overflow:hidden;}
+.prod-img-wrap img{transition:transform .3s;}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.04);}
+.prod-zoom-hint{
+  position:absolute;top:8px;right:8px;
+  background:rgba(0,0,0,.6);color:#fff;
+  font-size:10.5px;font-weight:700;
+  padding:4px 9px;border-radius:20px;
+  display:flex;align-items:center;gap:4px;
+  opacity:0;transition:opacity .2s;
+  pointer-events:none;
+}
+.prod-card:hover .prod-zoom-hint{opacity:1;}
+.prod-quote-btn{
+  margin-top:10px;
+  display:inline-block;
+  font-family:'Roboto',Arial,sans-serif;
+  font-size:12px;font-weight:700;color:#fff;
+  background:var(--gold);
+  border:none;border-radius:var(--r);
+  padding:7px 14px;cursor:pointer;
+  transition:background .15s;
+  width:100%;
+}
+.prod-quote-btn:hover{background:var(--gold2);}
+
+/* ─── PRODUCT LIGHTBOX MODAL ─────────────── */
+.pmodal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.82);z-index:600;
+  align-items:center;justify-content:center;padding:20px;
+  backdrop-filter:blur(4px);
+}
+.pmodal-overlay.open{display:flex;}
+.pmodal-box{
+  background:#fff;border-radius:10px;
+  max-width:680px;width:100%;
+  overflow:hidden;
+  position:relative;
+  animation:modalIn .22s ease;
+}
+@keyframes modalIn{from{transform:scale(.94);opacity:0;}to{transform:scale(1);opacity:1;}}
+.pmodal-close{
+  position:absolute;top:10px;right:12px;z-index:10;
+  background:rgba(0,0,0,.55);color:#fff;border:none;
+  width:30px;height:30px;border-radius:50%;font-size:14px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+}
+.pmodal-img-wrap img{width:100%;max-height:340px;object-fit:cover;display:block;}
+.pmodal-info{padding:20px 22px;}
+.pmodal-name{font-size:18px;font-weight:900;color:var(--ink);margin-bottom:6px;letter-spacing:-.02em;}
+.pmodal-desc{font-size:13.5px;color:var(--t3);line-height:1.65;margin-bottom:18px;}
+.pmodal-acts{display:flex;gap:10px;flex-wrap:wrap;}
+.pmodal-quote-btn{
+  flex:1;padding:12px 18px;
+  background:var(--gold);color:#000;
+  border:none;border-radius:var(--r);
+  font-family:'Roboto',Arial,sans-serif;
+  font-size:14px;font-weight:900;cursor:pointer;
+  transition:background .15s;
+  white-space:nowrap;
+}
+.pmodal-quote-btn:hover{background:var(--gold2);}
+.pmodal-wa-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:12px 18px;
+  background:var(--wa);color:#fff;
+  border-radius:var(--r);
+  font-size:13.5px;font-weight:700;text-decoration:none;
+  white-space:nowrap;transition:background .15s;
+}
+.pmodal-wa-btn:hover{background:#1fba58;}
+
+/* ─── QUOTE FORM MODAL ───────────────────── */
+.qmodal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(0,0,0,.75);z-index:700;
+  align-items:center;justify-content:center;padding:20px;
+  backdrop-filter:blur(3px);
+}
+.qmodal-overlay.open{display:flex;}
+.qmodal-box{
+  background:#fff;border-radius:10px;
+  border-top:4px solid var(--gold);
+  max-width:460px;width:100%;
+  padding:28px 24px;
+  position:relative;max-height:92vh;overflow-y:auto;
+  animation:modalIn .22s ease;
+}
+.qmodal-close{
+  position:absolute;top:12px;right:14px;
+  background:none;border:none;font-size:18px;
+  cursor:pointer;color:var(--t3);
+  font-family:'Roboto',Arial,sans-serif;
+  line-height:1;
+}
+.qmodal-header{display:flex;align-items:flex-start;gap:12px;margin-bottom:20px;}
+.qmodal-icon{font-size:24px;line-height:1;margin-top:2px;}
+.qmodal-title{font-size:17px;font-weight:900;color:var(--ink);line-height:1.2;letter-spacing:-.02em;}
+.qmodal-prod-name{font-size:12.5px;color:var(--gold);font-weight:700;margin-top:3px;}
+
+.qm-fg{margin-bottom:12px;}
+.qm-fg label{display:block;font-size:12px;font-weight:700;color:var(--ink2);margin-bottom:4px;}
+.qm-fg input,.qm-fg textarea{
+  width:100%;padding:10px 12px;
+  border:1.5px solid var(--border);border-radius:var(--r);
+  font-family:'Roboto',Arial,sans-serif;font-size:13.5px;color:var(--ink);
+  outline:none;transition:border-color .15s;background:#fff;
+}
+.qm-fg input:focus,.qm-fg textarea:focus{border-color:var(--gold);}
+.req{color:#e53e3e;}
+.qm-err{display:none;font-size:11px;color:#e53e3e;margin-top:4px;font-weight:500;}
+.qm-ok{display:none;font-size:11px;color:#16a34a;margin-top:4px;font-weight:700;}
+.qm-submit{
+  width:100%;padding:13px;
+  background:var(--gold);color:#000;border:none;
+  border-radius:var(--r);
+  font-family:'Roboto',Arial,sans-serif;
+  font-size:14.5px;font-weight:900;cursor:pointer;
+  transition:background .15s,transform .1s;
+  margin-top:4px;
+}
+.qm-submit:hover{background:var(--gold2);transform:translateY(-1px);}
+.qm-privacy{font-size:11px;color:var(--t3);text-align:center;margin-top:8px;}
+.qm-privacy a{color:var(--gold);}
+.qm-wa-alt{
+  margin-top:16px;border-top:1px solid var(--border2);
+  padding-top:14px;text-align:center;
+}
+.qm-wa-alt-label{font-size:12px;color:var(--t3);margin-bottom:8px;}
+.qm-wa-direct{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--wa);color:#fff;padding:10px 20px;
+  border-radius:var(--r);font-size:13px;font-weight:700;
+  text-decoration:none;transition:background .15s;
+}
+.qm-wa-direct:hover{background:#1fba58;}
+
+
+/* ─── TRUST BANNER STRIP ────────────────── */
+.trust-banner-strip{
+  position:relative;overflow:hidden;
+  min-height:200px;
+}
+.trust-banner-strip img{
+  width:100%;height:260px;object-fit:cover;
+  display:block;object-position:center 40%;
+}
+.tbanner-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(
+    90deg,
+    rgba(0,0,0,.82) 0%,
+    rgba(0,0,0,.6) 55%,
+    rgba(0,0,0,.3) 100%
+  );
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;flex-wrap:wrap;gap:20px;
+}
+.tbanner-eyebrow{
+  font-size:10.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold);
+  margin-bottom:8px;
+}
+.tbanner-title{
+  font-size:clamp(18px,2.8vw,28px);font-weight:900;
+  color:#fff;line-height:1.2;letter-spacing:-.025em;
+  margin-bottom:14px;
+}
+.tbanner-chips{display:flex;flex-wrap:wrap;gap:7px;}
+.tbanner-chips span{
+  font-size:11px;font-weight:700;
+  background:rgba(240,165,0,.15);
+  border:1px solid rgba(240,165,0,.35);
+  color:rgba(255,255,255,.85);
+  padding:4px 12px;border-radius:20px;
+}
+.tbanner-btn{
+  display:inline-flex;align-items:center;
+  background:var(--gold);color:#000;
+  font-size:14px;font-weight:900;
+  padding:13px 26px;border-radius:var(--r);
+  text-decoration:none;transition:background .15s,transform .12s;
+  white-space:nowrap;
+}
+.tbanner-btn:hover{background:var(--gold2);transform:translateY(-1px);}
+@media(max-width:600px){
+  .tbanner-overlay{padding:20px 20px;flex-direction:column;align-items:flex-start;}
+  .trust-banner-strip img{height:340px;}
+}
+
+
+/* ─── VIDEO SHOWCASE STRIP ──────────────── */
+.video-showcase-strip{
+  background:var(--dark);
+  border-top:1px solid rgba(240,165,0,.15);
+  border-bottom:1px solid rgba(240,165,0,.15);
+  padding:52px 24px;
+  overflow:hidden;
+}
+.vss-inner{text-align:center;margin-bottom:32px;}
+.vss-label{
+  font-size:10.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:8px;
+}
+.vss-title{
+  font-size:clamp(20px,3vw,30px);font-weight:900;
+  color:#fff;line-height:1.2;letter-spacing:-.025em;margin-bottom:8px;
+}
+.vss-title em{font-style:normal;color:var(--gold);}
+.vss-sub{font-size:14px;color:rgba(255,255,255,.5);line-height:1.65;max-width:560px;margin:0 auto;}
+
+.vss-video-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  max-width:var(--wrap);margin:0 auto;
+}
+@media(max-width:700px){.vss-video-row{grid-template-columns:1fr;}}
+
+.vss-vid-box{
+  border-radius:10px;overflow:hidden;
+  position:relative;background:#111;
+}
+.vss-vid-box video{
+  width:100%;height:200px;object-fit:cover;display:block;
+}
+@media(max-width:700px){.vss-vid-box video{height:220px;}}
+
+.vss-vid-cap{
+  background:rgba(0,0,0,.7);
+  color:rgba(255,255,255,.85);
+  font-size:12px;font-weight:600;
+  padding:10px 14px;
+  display:flex;align-items:center;gap:8px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.vss-cap-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--gold);flex-shrink:0;
+  animation:blink 1.8s ease-in-out infinite;
+}
+
+/* ─── FIELD VALIDATION STATES ───────────── */
+.field-err{
+  display:none;font-size:11.5px;color:#e53e3e;
+  margin-top:4px;font-weight:500;
+}
+.field-ok{
+  display:none;font-size:11.5px;color:#16a34a;
+  margin-top:4px;font-weight:700;
+}
+.fg input.is-invalid{border-color:#e53e3e !important;}
+.fg input.is-invalid:focus{border-color:#e53e3e !important;box-shadow:0 0 0 3px rgba(229,62,62,.08);}
+.fg input.is-valid{border-color:#16a34a !important;}
+.fg input.is-valid:focus{border-color:#16a34a !important;}
+
+/* shake animation for error */
+@keyframes shake{
+  0%,100%{transform:translateX(0);}
+  20%,60%{transform:translateX(-5px);}
+  40%,80%{transform:translateX(5px);}
+}
+.shake{animation:shake .35s ease;}
+
+/* ═══════════════════════════════════════════
+   COMPREHENSIVE MOBILE-FIRST RESPONSIVE CSS
+   Breakpoints: 900px · 768px · 600px · 480px
+════════════════════════════════════════════ */
+
+/* ── 900px and below ───────────────────── */
+@media(max-width:900px){
+
+
+  /* SECTIONS */
+  .sec{padding:48px 20px;}
+
+  /* WHY GRID */
+  .why-grid{grid-template-columns:1fr;}
+
+  /* SOLUTION */
+  .solution-grid{grid-template-columns:1fr;}
+
+  /* CAPS */
+  .cap-grid{grid-template-columns:repeat(2,1fr);}
+
+  /* TESTIMONIALS */
+  .testi-grid{grid-template-columns:1fr;}
+
+  /* FOOTER */
+  .footer-grid{grid-template-columns:1fr 1fr;}
+
+  /* FACTORY */
+  .fac-video-grid{grid-template-columns:1fr;}
+  .fac-banner-row{grid-template-columns:1fr;}
+  .fac-stats-col{grid-template-rows:unset;grid-template-columns:repeat(4,1fr);}
+
+  /* PLATFORM STRIP */
+  .platform-strip-inner{height:auto;padding:14px 16px;flex-wrap:wrap;gap:10px;}
+  .platform-divider{display:none;}
+  .platform-badge-col{display:none;}
+  .platform-logos-wrap{width:100%;order:3;flex:unset;}
+
+  /* CATALOGUE */
+  .cat-inner{grid-template-columns:1fr;}
+
+  /* BRAND TIER */
+  .brand-tier-grid{grid-template-columns:1fr;}
+
+  /* PROCESS */
+  .proc-steps{grid-template-columns:repeat(2,1fr);}
+
+  /* TRUST BANNER */
+  .tbanner-overlay{padding:20px 18px;flex-direction:column;align-items:flex-start;gap:14px;}
+}
+
+/* ── 768px and below ───────────────────── */
+@media(max-width:768px){
+
+  /* TOPBAR — shrink, wrap */
+  .topbar{font-size:11px;gap:8px;padding:7px 16px;}
+  .sep{display:none;}
+
+  /* NAV */
+  .nav-inner{padding:0 16px;height:56px;}
+  .site-logo-img{height:36px !important;}
+
+
+
+
+  /* STATS BAR */
+  .stats-grid{grid-template-columns:repeat(3,1fr);}
+
+  /* PRODUCTS — 2 col */
+  .prod-grid{grid-template-columns:repeat(2,1fr);gap:10px;}
+
+  /* CLIENT LOGO GRID — 3 col */
+  .client-logo-grid{grid-template-columns:repeat(3,1fr);gap:10px;}
+  .cl-img-wrap{height:64px;padding:10px 8px;}
+  .cl-img-wrap img{max-height:36px;}
+
+  /* INDUSTRIES */
+  .ind-grid{grid-template-columns:repeat(3,1fr);}
+
+  /* WHY */
+  .why-grid{grid-template-columns:1fr;}
+
+  /* FACTORY */
+  .fac-vid-card{height:220px;}
+  .fac-banner-img img{min-height:180px;}
+  .fac-stats-col{grid-template-columns:repeat(2,1fr);grid-template-rows:unset;gap:8px;}
+
+  /* BOTTOM CTA BANNER */
+  .trust-banner-strip img{height:280px;}
+
+  /* FOOTER */
+  .footer-grid{grid-template-columns:1fr;}
+  .footer-bottom{flex-direction:column;gap:6px;text-align:center;}
+}
+
+/* ── 600px and below ───────────────────── */
+@media(max-width:600px){
+
+  /* TOPBAR — show only essentials */
+  .topbar{display:none;}
+
+  /* NAV — always show phone */
+  .btn-ghost{display:none !important;}
+
+
+  /* STATS BAR */
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .stat{padding:12px 14px;}
+  .stat-n{font-size:12px;}
+
+  /* PRODUCTS */
+  .prod-grid{grid-template-columns:1fr 1fr;gap:8px;}
+  .prod-img-wrap img{height:110px;}
+  .prod-body{padding:10px 12px;}
+  .prod-body h3{font-size:12.5px;}
+  .prod-body p{font-size:11.5px;}
+  .prod-quote-btn{font-size:11px;padding:6px 10px;}
+  .prod-tags{gap:3px;}
+  .tag{font-size:9.5px;padding:2px 6px;}
+
+  /* PLATFORM STRIP */
+  .platform-label-main{font-size:13px;}
+  .platform-strip-inner{padding:12px 14px;}
+
+  /* CATALOGUE */
+  .cat-includes{grid-template-columns:1fr;}
+  .cat-preview{grid-template-columns:1fr 1fr;}
+  .cat-inner{padding:0 16px;}
+  .cat-sec{padding:40px 16px;}
+
+  /* INDUSTRIES */
+  .ind-grid{grid-template-columns:repeat(2,1fr);}
+  .ind-wrap{padding:40px 16px;}
+
+  /* PROCESS */
+  .proc-steps{grid-template-columns:1fr;}
+  .proc-wrap{padding:40px 16px;}
+
+  /* CLIENT LOGO GRID */
+  .client-logo-grid{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .cl-name{font-size:10px;}
+  .cl-tag{font-size:8.5px;}
+
+  /* FACTORY */
+  .fac-sec{padding:40px 16px;}
+  .fac-vid-card{height:190px;}
+  .fac-banner-overlay{padding:16px 14px;}
+  .fac-banner-headline{font-size:16px;}
+  .fac-banner-btn{font-size:12px;padding:9px 16px;}
+  .fac-stats-col{grid-template-columns:repeat(2,1fr);}
+  .fac-stat-n{font-size:18px;}
+
+  /* WHY */
+  .why-sec{padding:40px 16px;}
+  .why-item{padding:18px 16px;}
+
+  /* TESTIMONIALS */
+  .testi-sec{padding:40px 16px;}
+
+  /* CAPABILITIES */
+  .cap-sec{padding:40px 16px;}
+  .cap-grid{grid-template-columns:1fr;}
+
+  /* CLIENT SECTION */
+  .client-sec{padding:40px 16px;}
+
+  /* TICKER */
+  .ticker-inner span{font-size:12px;}
+
+  /* SECTION HEADINGS */
+  .h2{font-size:clamp(20px,5.5vw,28px);}
+  .sub{font-size:14px;}
+  .lbl{font-size:10px;}
+
+  /* TRUST BANNER */
+  .trust-banner-strip img{height:320px;}
+  .tbanner-title{font-size:18px;}
+  .tbanner-btn{font-size:13px;padding:11px 20px;}
+
+  /* BOTTOM CTA */
+  .btm{padding:44px 16px;}
+  .btm-acts{flex-direction:column;align-items:stretch;}
+  .btm-acts a{text-align:center;}
+  .btn-wht,.btn-wa{font-size:14px;padding:13px 20px;}
+
+  /* FOOTER */
+  .footer{padding:32px 16px 20px;}
+  .footer-grid{gap:20px;}
+  .f-kw-links a{font-size:12px;line-height:2;}
+  .footer-bottom{font-size:11px;}
+
+  /* MODALS */
+  .pmodal-box{max-width:100%;margin:0 8px;border-radius:8px;}
+  .pmodal-img-wrap img{max-height:240px;}
+  .pmodal-info{padding:14px 16px;}
+  .pmodal-name{font-size:15px;}
+  .pmodal-acts{flex-direction:column;}
+  .pmodal-wa-btn,.pmodal-quote-btn{width:100%;justify-content:center;}
+
+  .qmodal-box{padding:20px 16px;margin:0 8px;}
+  .qmodal-title{font-size:15px;}
+  .qm-submit{font-size:13.5px;padding:12px;}
+
+  /* EXIT INTENT */
+  .ei-box{padding:24px 18px;}
+
+  /* MOB BAR */
+  .mob-bar{padding:10px 12px;}
+  .mob-bar a{font-size:12px;padding:11px 6px;}
+}
+
+/* ── 480px and below ───────────────────── */
+@media(max-width:480px){
+
+  /* Brand tier cards */
+  .brand-tier-card{padding:16px;}
+  .btc-brand{font-size:11px;padding:3px 9px;}
+
+  /* Process steps - 1 col on tiny screens */
+  .proc-steps{grid-template-columns:1fr;}
+
+  /* Factory row4 */
+  .fac-row4{grid-template-columns:repeat(2,1fr);}
+
+  /* Client logos - 2 col */
+  .client-logo-grid{grid-template-columns:repeat(2,1fr);}
+
+  /* Section padding */
+  .sec{padding:36px 14px;}
+
+  /* TOPBAR always hidden on smallest */
+  .topbar{display:none;}
+}
+
+body{padding-bottom:66px;}
+
+/* ═══════════════════════════════════════════════
+   DESKTOP POLISH — min-width only, mobile untouched
+   Targets: 900px (laptop) + 1200px (large Mac/desktop)
+════════════════════════════════════════════════ */
+
+@media(min-width:900px){
+
+  /* ── NAV ── */
+  .nav-inner{height:66px;}
+  .site-logo-img{height:48px !important;}
+
+  /* ── HERO ── */
+  .hero-inner{
+    padding:72px 5% 64px;
+    gap:52px;
+    align-items:center;
+  }
+  .hero h1{font-size:clamp(36px,3.8vw,52px);line-height:1.07;}
+  .hero-desc{font-size:16px;max-width:100%;margin-bottom:20px;}
+  .live-badge{font-size:13px;padding:6px 14px;margin-bottom:16px;}
+  .hero-tag{font-size:12px;padding:5px 14px;margin-bottom:18px;}
+  .chips{gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+  .chip{font-size:12.5px;padding:7px 14px;}
+
+  /* stats — flex row with dividers */
+  .hero-stats{
+    display:flex !important;
+    flex-direction:row;
+    gap:0;
+    margin-top:28px;padding-top:22px;
+  }
+  .hero-stat{
+    flex:1;min-width:0;
+    background:none !important;
+    border:none !important;
+    border-radius:0 !important;
+    padding:0 16px 0 0 !important;
+    border-right:1px solid rgba(255,255,255,.12) !important;
+  }
+  .hero-stat:last-child{
+    border-right:none !important;
+    padding-right:0 !important;
+  }
+  .hero-stat-n{font-size:22px;}
+  .hero-stat-l{font-size:10.5px;}
+
+  /* client slider */
+  .hero-client-slider{margin-top:24px;padding-top:16px;}
+  .hcs-label{font-size:10.5px;}
+  .hcs-logo{height:44px;min-width:88px;}
+  .hcs-logo img{height:24px;max-width:68px;}
+
+  /* form card */
+  .hero-form-card{padding:26px 22px;}
+  .hfc-title{font-size:17px;}
+
+  /* ── SECTIONS general ── */
+  .sec{padding:72px 40px;}
+  .h2{font-size:clamp(26px,2.8vw,34px);}
+  .sub{font-size:16px;}
+
+  /* ── STATS BAR ── */
+  .stats-grid{grid-template-columns:repeat(6,1fr);}
+  .stat-n{font-size:13.5px;}
+
+  /* ── PRODUCTS ── */
+  .prod-grid{grid-template-columns:repeat(4,1fr);gap:16px;}
+  .prod-body h3{font-size:14px;}
+  .prod-body p{font-size:13px;}
+
+  /* ── CATALOGUE ── */
+  .cat-inner{
+    max-width:var(--wrap);margin:0 auto;
+    grid-template-columns:1fr 400px;
+    gap:60px;align-items:center;
+  }
+  .cat-title{font-size:clamp(24px,2.5vw,34px);}
+  .cat-desc{font-size:16px;}
+
+  /* ── INDUSTRIES ── */
+  .ind-grid{grid-template-columns:repeat(5,1fr);}
+  .ind-item{padding:18px 14px;font-size:13px;}
+
+  /* ── WHY US ── */
+  .why-grid{grid-template-columns:repeat(2,1fr);}
+  .why-item h3{font-size:16px;}
+  .why-item p{font-size:14px;}
+
+  /* ── PROCESS ── */
+  .proc-steps{grid-template-columns:repeat(4,1fr);gap:16px;}
+  .pstep h3{font-size:15px;}
+  .pstep p{font-size:13.5px;}
+
+  /* ── FACTORY ── */
+  .fac-sec{padding:72px 40px;}
+  .fac-vid-card{height:320px;}
+  .fac-banner-row{grid-template-columns:1fr 240px;}
+  .fac-banner-headline{font-size:clamp(22px,2.5vw,30px);}
+  .fac-stat-n{font-size:26px;}
+  .fac-stat-l{font-size:12.5px;}
+
+  /* ── VIDEO SHOWCASE ── */
+  .video-showcase-strip{padding:72px 40px;}
+  .vss-video-row{grid-template-columns:repeat(3,1fr);gap:16px;}
+  .vss-vid-box video{height:240px;}
+
+  /* ── CLIENT LOGO GRID ── */
+  .client-logo-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;}
+  .cl-img-wrap{height:88px;padding:16px 14px;}
+  .cl-img-wrap img{max-height:44px;}
+  .cl-name{font-size:12px;}
+
+  /* ── TESTIMONIALS ── */
+  .testi-grid{grid-template-columns:repeat(3,1fr);gap:20px;}
+  .testi-card{padding:28px;}
+  .testi-card blockquote{font-size:14.5px;}
+
+  /* ── CAPS ── */
+  .cap-grid{grid-template-columns:repeat(3,1fr);}
+  .cap-card h3{font-size:15px;}
+  .cap-card p{font-size:13.5px;}
+
+  /* ── TRUST BANNER ── */
+  .trust-banner-strip img{height:320px;}
+  .tbanner-title{font-size:32px;}
+  .tbanner-overlay{padding:0 60px;}
+
+  /* ── BOTTOM CTA ── */
+  .btm{padding:80px 40px;}
+  .btm .h2{font-size:clamp(28px,3vw,38px);}
+
+  /* ── FOOTER ── */
+  .footer{padding:56px 40px 28px;}
+  .footer-grid{grid-template-columns:2fr 1fr 1fr 1.3fr;gap:40px;}
+  .f-brand-name{font-size:16px;}
+
+  /* ── PLATFORM STRIP ── */
+  .platform-strip-inner{height:90px;}
+  .platform-label-main{font-size:16px;}
+}
+
+@media(min-width:1200px){
+
+  /* Wider wrap */
+  :root{--wrap:1200px;}
+
+  /* ── HERO ── */
+  .hero-inner{
+    grid-template-columns:1fr 460px;
+    padding:84px 6% 72px;
+    gap:72px;
+    max-width:1440px;
+  }
+  .hero h1{font-size:clamp(44px,3.5vw,58px);}
+  .hero-desc{font-size:17px;}
+  .hero-stat-n{font-size:26px;}
+  .hero-stat-l{font-size:11.5px;}
+  .hcs-logo{height:48px;min-width:100px;}
+  .hcs-logo img{height:28px;max-width:78px;}
+  .hero-form-card{padding:30px 28px;}
+
+  /* ── SECTIONS — more breathing room ── */
+  .sec{padding:80px 6%;}
+  .h2{font-size:36px;}
+  .sub{font-size:17px;}
+
+  /* ── PRODUCTS ── */
+  .prod-grid{grid-template-columns:repeat(4,1fr);gap:20px;}
+
+  /* ── FACTORY ── */
+  .fac-sec{padding:80px 6%;}
+  .fac-vid-card{height:360px;}
+
+  /* ── VIDEO SHOWCASE ── */
+  .video-showcase-strip{padding:80px 6%;}
+  .vss-video-row{max-width:1200px;}
+  .vss-vid-box video{height:280px;}
+  .vss-title{font-size:34px;}
+
+  /* ── CATALOGUE ── */
+  .cat-sec{padding:80px 6%;}
+  .cat-inner{max-width:1200px;grid-template-columns:1fr 460px;gap:80px;}
+
+  /* ── FOOTER ── */
+  .footer{padding:64px 6% 32px;}
+  .footer-grid{gap:56px;}
+}
+
+@media(min-width:1400px){
+  .hero-inner{padding:88px 8% 80px;gap:80px;}
+  .sec{padding:88px 8%;}
+  .fac-sec,.video-showcase-strip,.cat-sec{padding:88px 8%;}
+  .footer{padding:72px 8% 36px;}
+}
+
+</style>
+</head>
+<body>
+
+<!-- EXIT INTENT POPUP -->
+<div class="ei-overlay" id="eiOverlay">
+  <div class="ei-box">
+    <button class="ei-close" onclick="closeEI()">✕</button>
+    <div class="ei-icon">⚡</div>
+    <div class="ei-title">Wait — Get Your <em>Free Quote</em><br>Before You Go</div>
+    <div class="ei-sub">Leave your number. Our packaging expert calls you back within 2 hours with factory pricing — no middlemen, no markups.</div>
+    <form class="ei-form" onsubmit="submitEI(event)">
+      <input type="text" id="eiName" placeholder="Your Name" required>
+      <input type="tel" id="eiPhone" placeholder="Your WhatsApp Number" required>
+      <button type="submit" class="ei-btn">📞 Get My Free Factory Quote</button>
+    </form>
+    <div class="ei-skip" onclick="closeEI()">No thanks, I'll pay more elsewhere</div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <span>Packaging Manufacturer Since <strong>1975</strong></span>
+  <span class="sep">|</span>
+  <span>C-10 Sector 85, Noida</span>
+  <span class="sep">|</span>
+  <span>Call: <a href="tel:+919871713676" onclick="SP.trackCall('topbar')"><strong>+91 98717 13676</strong></a></span>
+  <span class="sep">|</span>
+  <a href="/cdn-cgi/l/email-protection#3f5d4a4c56515a4c4c7f4c4f4f4f53115651"><span class="__cf_email__" data-cfemail="eb899e9882858e9898ab989b9b9b87c58285">[email&#160;protected]</span></a>
+  <span class="sep">|</span>
+  <span class="reply-live"><span class="reply-dot"></span>Instant WhatsApp Reply</span>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/">
+      <img src="https://static.wixstatic.com/shapes/895e2c_b95cb9e5b8d84b41883b14d99d04e47c.svg"
+           alt="Solar Print Process Pvt. Ltd." class="site-logo-img"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block';">
+      <span class="logo-name" style="display:none;">Solar Print Process</span>
+    </a>
+    <div class="nav-acts">
+      <a href="tel:+919871713676" class="btn-ghost" onclick="SP.trackCall('nav')">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 01.22 2.18 2 2 0 012.18 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.56 6.56l1.07-1.07a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +91 98717 13676
+      </a>
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+a+packaging+quote" class="btn-wa-nav" target="_blank" rel="noopener" onclick="SP.trackWhatsApp('nav')">WhatsApp Quote</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     HERO — SCREENPAL VIDEO BACKGROUND
+     Video: Wix MP4 factory hero
+     Controls hidden via CSS clip + pointer-events:none
+════════════════════════════════════════════ -->
+<section class="hero" id="top">
+
+  <!-- Hero background: poster image from factory -->
+  <div class="hero-bg-img"></div>
+
+  <!-- Dark overlay -->
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+    <!-- LEFT CONTENT -->
+    <div class="hero-left">
+      <!-- GOOGLE ADS HACK: Live social proof counter — drives FOMO -->
+      <div class="live-badge">
+        <span class="live-dot"></span>
+        <span id="liveCount">34</span> companies requested quotes today
+      </div>
+
+      <div class="hero-tag"><span class="hero-tag-dot"></span>Trusted by Glenfiddich · Jio · Havells · Jack Daniel's &amp; 500+ more</div>
+
+      <h1>Custom Printing &amp; Packaging<br><em>Manufacturer</em><br>Since 1975</h1>
+
+      <p class="hero-desc">India's leading brands — from global spirits to top FMCG — trust Solar for packaging that performs. Direct manufacturer. 200,000 sq ft Noida plant. Factory pricing. Pan-India delivery.</p>
+
+      <div class="chips">
+        <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Mono+Cartons" class="chip" onclick="SP.trackWhatsApp('hero_chip', 'Mono Cartons')" target="_blank" rel="noopener">Mono Cartons</a>
+        <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Rigid+Boxes" class="chip" onclick="SP.trackWhatsApp('hero_chip', 'Rigid Boxes')" target="_blank" rel="noopener">Rigid Boxes</a>
+        <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Cosmetic+Packaging" class="chip" onclick="SP.trackWhatsApp('hero_chip', 'Cosmetic Boxes')" target="_blank" rel="noopener">Cosmetic Boxes</a>
+        <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Pharma+Packaging" class="chip" onclick="SP.trackWhatsApp('hero_chip', 'Pharma Packaging')" target="_blank" rel="noopener">Pharma Packaging</a>
+        <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Food+Packaging" class="chip" onclick="SP.trackWhatsApp('hero_chip', 'Food Packaging')" target="_blank" rel="noopener">Food Packaging</a>
+        <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Gift+Boxes" class="chip" onclick="SP.trackWhatsApp('hero_chip', 'Gift Boxes')" target="_blank" rel="noopener">Gift Boxes</a>
+        <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Corrugated+Boxes" class="chip" onclick="SP.trackWhatsApp('hero_chip', 'Corrugated')" target="_blank" rel="noopener">Corrugated</a>
+        <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Ecommerce+Packaging" class="chip" onclick="SP.trackWhatsApp('hero_chip', 'Ecommerce')" target="_blank" rel="noopener">Ecommerce</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-n">51+</div>
+          <div class="hero-stat-l">Years Est.</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">200K</div>
+          <div class="hero-stat-l">Sq Ft Plant</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">500+</div>
+          <div class="hero-stat-l">B2B Clients</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">18+</div>
+          <div class="hero-stat-l">Product Types</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">2 Hr</div>
+          <div class="hero-stat-l">Quote Reply</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-n">300+</div>
+          <div class="hero-stat-l">Min. Qty (MOQ)</div>
+        </div>
+      </div>
+
+    <!-- CLIENT LOGO SLIDER — after hero stats -->
+    <div class="hero-client-slider">
+      <div class="hcs-label">Trusted by 500+ brands including</div>
+      <div class="hcs-track-wrap">
+        <div class="hcs-track" id="hcsTrack">
+
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/glenfiddich_logo-zElLT1HnXupZJISttewtWurw9Ko4on.png" alt="Glenfiddich" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jackdaniels_logo-PcW4NIXDlzE7pJaRnSvQ8Cx2VEG0Kl.png" alt="Jack Daniel's" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grants_logo-UDyNB8IJz47iUJP85BrvpArhgrGpVU.png" alt="Grant's" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/belvedere_vodka_logo-QOCtNoDqj4mvs3PdPEICUpHMrE5dma.png" alt="Belvedere" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kilchoman_logo-GU08dC1xdmzSZMCoesUtTrtW08qp3R.png" alt="Kilchoman" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jio_logo-duy96C2Oejr4EijTBAAcOef5XJuMRt.png" alt="Jio" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/havells_logo-TUAwMHoPLhiz6So6iY64oDczntNWod.png" alt="Havells" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/v-guard_logo-BOH97m3vxx750FahAaSpvUiy6nAiOP.png" alt="V-Guard" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tuborg_logo-uE6CT4Yui2icZXa9WKbxCwfSqml5hI.png" alt="Tuborg" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bulldog_london_dry_gin_logo-68HQInAvvDpHXCELXof8iRtCcf99xI.png" alt="Bulldog Gin" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ballatines_logo-DXW8zDM20eVHwwk4GMgI5u8HQgoIFH.png" alt="Ballantine's" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/skyy_vodka_logo-BNjUdpZnH435ieSy5LS90TXjuTyjQI.png" alt="Skyy Vodka" loading="eager"></div>
+
+          <!-- DUPLICATE for seamless loop -->
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/glenfiddich_logo-zElLT1HnXupZJISttewtWurw9Ko4on.png" alt="Glenfiddich" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jackdaniels_logo-PcW4NIXDlzE7pJaRnSvQ8Cx2VEG0Kl.png" alt="Jack Daniel's" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grants_logo-UDyNB8IJz47iUJP85BrvpArhgrGpVU.png" alt="Grant's" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/belvedere_vodka_logo-QOCtNoDqj4mvs3PdPEICUpHMrE5dma.png" alt="Belvedere" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kilchoman_logo-GU08dC1xdmzSZMCoesUtTrtW08qp3R.png" alt="Kilchoman" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jio_logo-duy96C2Oejr4EijTBAAcOef5XJuMRt.png" alt="Jio" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/havells_logo-TUAwMHoPLhiz6So6iY64oDczntNWod.png" alt="Havells" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/v-guard_logo-BOH97m3vxx750FahAaSpvUiy6nAiOP.png" alt="V-Guard" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tuborg_logo-uE6CT4Yui2icZXa9WKbxCwfSqml5hI.png" alt="Tuborg" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bulldog_london_dry_gin_logo-68HQInAvvDpHXCELXof8iRtCcf99xI.png" alt="Bulldog Gin" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ballatines_logo-DXW8zDM20eVHwwk4GMgI5u8HQgoIFH.png" alt="Ballantine's" loading="eager"></div>
+          <div class="hcs-logo"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/skyy_vodka_logo-BNjUdpZnH435ieSy5LS90TXjuTyjQI.png" alt="Skyy Vodka" loading="eager"></div>
+
+        </div>
+      </div>
+    </div>
+
+    </div>
+
+    <!-- RIGHT — LEAD FORM: Name, Phone, Company, GST -->
+    <div class="hero-right">
+      <div class="hero-form-card" id="heroForm">
+        <div class="hfc-title">Get Factory-Direct Pricing</div>
+        <div class="hfc-sub">No middlemen. Quote in 2 hours. Free samples on first order.</div>
+
+        <div class="step-dots">
+          <div class="step-dot active" id="dot1"></div>
+          <div class="step-dot" id="dot2"></div>
+        </div>
+
+        <!-- FORM — all fields visible (no steps) -->
+        <div class="form-step active" id="fStep1">
+
+          <!-- Name -->
+          <div class="fg">
+            <label for="fName">Your Name <span style="color:#e53e3e">*</span></label>
+            <input type="text" id="fName" placeholder="Rajesh Sharma" autocomplete="name" inputmode="text">
+            <div class="field-err" id="errName">Please enter your full name.</div>
+          </div>
+
+          <!-- Phone — validated Indian 10-digit -->
+          <div class="fg">
+            <label for="fPhone">WhatsApp / Mobile Number <span style="color:#e53e3e">*</span></label>
+            <div style="position:relative;">
+              <span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:700;color:var(--t3);pointer-events:none;">+91</span>
+              <input type="tel" id="fPhone" placeholder="98717 13676" autocomplete="tel" inputmode="numeric" maxlength="10" style="padding-left:42px;">
+            </div>
+            <div class="field-err" id="errPhone">Please enter a valid 10-digit Indian mobile number.</div>
+            <div class="field-ok" id="okPhone">✓ Valid number</div>
+          </div>
+
+          <!-- Company Name -->
+          <div class="fg">
+            <label for="fCompany">Company / Business Name <span style="color:#e53e3e">*</span></label>
+            <input type="text" id="fCompany" placeholder="Your company name" autocomplete="organization">
+            <div class="field-err" id="errCompany">Please enter your company name.</div>
+          </div>
+
+          <!-- GST Number -->
+          <div class="fg">
+            <label for="fGst">
+              GST Number
+              <span style="font-size:11px;font-weight:500;color:var(--t3);margin-left:4px;">(Optional — for invoice)</span>
+            </label>
+            <input type="text" id="fGst" placeholder="22AAAAA0000A1Z5" autocomplete="off" maxlength="15" style="text-transform:uppercase;">
+            <div class="field-err" id="errGst">GST format: 22AAAAA0000A1Z5 (15 characters)</div>
+            <div class="field-ok" id="okGst">✓ Valid GST number</div>
+          </div>
+
+          <button class="btn-cta-hero" type="button" onclick="submitHeroForm()">
+            📞 Get My Factory Price in 2 Hours
+          </button>
+          <p class="form-privacy">By submitting, you agree to our <a href="privacy-policy.html" target="_blank">Privacy Policy</a> &amp; <a href="terms.html" target="_blank">Terms</a>. We never spam.</p>
+        </div>
+
+        <!-- SUCCESS STATE -->
+        <div class="form-step" id="fStep2">
+          <div style="text-align:center;padding:20px 0;">
+            <div style="font-size:44px;margin-bottom:12px;">✅</div>
+            <div style="font-size:17px;font-weight:900;color:var(--ink);margin-bottom:8px;">Request Received!</div>
+            <div style="font-size:13px;color:var(--t3);line-height:1.7;margin-bottom:20px;">Our packaging expert will call you within 2 hours with factory-direct pricing.</div>
+            <a href="https://wa.me/919871713676?text=Hello%2C+I+just+submitted+a+quote+request+on+your+website" class="btn-wa" target="_blank" rel="noopener" style="display:inline-flex;margin:0 auto;justify-content:center;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Also WhatsApp Us Now
+            </a>
+          </div>
+        </div>
+
+        <div class="hfc-proof" id="hfcProofRow">
+          <div class="hfc-avatars">
+            <div class="hfc-av">R</div>
+            <div class="hfc-av" style="background:#0a0a0a;color:#f0a500;">P</div>
+            <div class="hfc-av" style="background:#1a3a1a;color:#25D366;">A</div>
+            <div class="hfc-av" style="background:#3d3d3d;color:#fff;">M</div>
+          </div>
+          <div class="hfc-proof-text"><strong>47 brand managers</strong> got quotes<br>this week via this form</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="statsbar">
+  <div class="stats-grid">
+    <div class="stat"><span class="stat-icon">🏭</span><span class="stat-n">Established 1975</span></div>
+    <div class="stat"><span class="stat-icon">📍</span><span class="stat-n">C-10 Sector 85, Noida</span></div>
+    <div class="stat"><span class="stat-icon">🏗️</span><span class="stat-n">200,000 Sq Ft Factory</span></div>
+    <div class="stat"><span class="stat-icon">🤝</span><span class="stat-n">500+ B2B Clients</span></div>
+    <div class="stat"><span class="stat-icon">🚚</span><span class="stat-n">Pan India Delivery</span></div>
+    <div class="stat"><span class="stat-icon">📦</span><span class="stat-n">300+ MOQ</span></div>
+  </div>
+</div>
+
+<!-- ══ PLATFORM AVAILABILITY STRIP ══ -->
+<div class="platform-strip">
+  <div class="platform-strip-inner">
+
+    <div class="platform-label-col">
+      <div class="platform-label-top">Find Us On</div>
+      <div class="platform-label-main">20+ Platforms</div>
+      <div class="platform-label-sub">Verified Manufacturer</div>
+    </div>
+
+    <div class="platform-divider"></div>
+
+    <div class="platform-logos-wrap">
+      <!-- Scrolling logo track — duplicated for infinite loop -->
+      <div class="platform-track" id="platformTrack">
+
+
+        <!-- FIRST COPY -->
+        <a href="https://www.indiamart.com" target="_blank" rel="noopener" class="plogo-card" title="IndiaMart">
+          <img src="https://logo.clearbit.com/indiamart.com?size=80" alt="IndiaMart" loading="eager">
+          <span class="plogo-name">IndiaMart</span>
+        </a>
+        <a href="https://www.tradeindia.com" target="_blank" rel="noopener" class="plogo-card" title="TradeIndia">
+          <img src="https://logo.clearbit.com/tradeindia.com?size=80" alt="TradeIndia" loading="eager">
+          <span class="plogo-name">TradeIndia</span>
+        </a>
+        <a href="https://www.justdial.com" target="_blank" rel="noopener" class="plogo-card" title="JustDial">
+          <img src="https://logo.clearbit.com/justdial.com?size=80" alt="JustDial" loading="eager">
+          <span class="plogo-name">JustDial</span>
+        </a>
+        <a href="https://business.amazon.in" target="_blank" rel="noopener" class="plogo-card" title="Amazon Business">
+          <img src="https://logo.clearbit.com/amazon.com?size=80" alt="Amazon Business" loading="eager">
+          <span class="plogo-name">Amazon Business</span>
+        </a>
+        <a href="https://business.google.com" target="_blank" rel="noopener" class="plogo-card" title="Google Business">
+          <img src="https://logo.clearbit.com/google.com?size=80" alt="Google Business" loading="eager">
+          <span class="plogo-name">Google Business</span>
+        </a>
+        <a href="https://www.alibaba.com" target="_blank" rel="noopener" class="plogo-card" title="Alibaba">
+          <img src="https://logo.clearbit.com/alibaba.com?size=80" alt="Alibaba" loading="eager">
+          <span class="plogo-name">Alibaba</span>
+        </a>
+        <a href="https://www.exportersindia.com" target="_blank" rel="noopener" class="plogo-card" title="ExportersIndia">
+          <img src="https://logo.clearbit.com/exportersindia.com?size=80" alt="ExportersIndia" loading="eager">
+          <span class="plogo-name">ExportersIndia</span>
+        </a>
+        <a href="https://www.sulekha.com" target="_blank" rel="noopener" class="plogo-card" title="Sulekha">
+          <img src="https://logo.clearbit.com/sulekha.com?size=80" alt="Sulekha" loading="eager">
+          <span class="plogo-name">Sulekha</span>
+        </a>
+        <a href="https://udaan.com" target="_blank" rel="noopener" class="plogo-card" title="Udaan">
+          <img src="https://logo.clearbit.com/udaan.com?size=80" alt="Udaan" loading="eager">
+          <span class="plogo-name">Udaan</span>
+        </a>
+        <a href="https://www.yellowpages.in" target="_blank" rel="noopener" class="plogo-card" title="Yellow Pages">
+          <img src="https://logo.clearbit.com/yellowpages.in?size=80" alt="Yellow Pages" loading="eager">
+          <span class="plogo-name">Yellow Pages</span>
+        </a>
+        <a href="https://www.globalsources.com" target="_blank" rel="noopener" class="plogo-card" title="GlobalSources">
+          <img src="https://logo.clearbit.com/globalsources.com?size=80" alt="GlobalSources" loading="eager">
+          <span class="plogo-name">GlobalSources</span>
+        </a>
+        <a href="https://www.tradekey.com" target="_blank" rel="noopener" class="plogo-card" title="TradeKey">
+          <img src="https://logo.clearbit.com/tradekey.com?size=80" alt="TradeKey" loading="eager">
+          <span class="plogo-name">TradeKey</span>
+        </a>
+        <a href="https://www.go4worldbusiness.com" target="_blank" rel="noopener" class="plogo-card" title="Go4WorldBusiness">
+          <img src="https://logo.clearbit.com/go4worldbusiness.com?size=80" alt="Go4WorldBusiness" loading="eager">
+          <span class="plogo-name">Go4WorldBusiness</span>
+        </a>
+        <a href="https://www.bizvibe.com" target="_blank" rel="noopener" class="plogo-card" title="BizVibe">
+          <img src="https://logo.clearbit.com/bizvibe.com?size=80" alt="BizVibe" loading="eager">
+          <span class="plogo-name">BizVibe</span>
+        </a>
+        <a href="https://www.kompass.com" target="_blank" rel="noopener" class="plogo-card" title="Kompass">
+          <img src="https://logo.clearbit.com/kompass.com?size=80" alt="Kompass" loading="eager">
+          <span class="plogo-name">Kompass</span>
+        </a>
+        <a href="https://www.thomasnet.com" target="_blank" rel="noopener" class="plogo-card" title="Thomasnet">
+          <img src="https://logo.clearbit.com/thomasnet.com?size=80" alt="Thomasnet" loading="eager">
+          <span class="plogo-name">Thomasnet</span>
+        </a>
+        <a href="https://mfg.com" target="_blank" rel="noopener" class="plogo-card" title="Mfg.com">
+          <img src="https://logo.clearbit.com/mfg.com?size=80" alt="Mfg.com" loading="eager">
+          <span class="plogo-name">Mfg.com</span>
+        </a>
+        <a href="https://www.wlw.de" target="_blank" rel="noopener" class="plogo-card" title="Wer Liefert Was">
+          <img src="https://logo.clearbit.com/wlw.de?size=80" alt="Wer Liefert Was" loading="eager">
+          <span class="plogo-name">Wer Liefert Was</span>
+        </a>
+        <a href="https://www.europages.com" target="_blank" rel="noopener" class="plogo-card" title="Europages">
+          <img src="https://logo.clearbit.com/europages.com?size=80" alt="Europages" loading="eager">
+          <span class="plogo-name">Europages</span>
+        </a>
+        <!-- DUPLICATE FOR SEAMLESS LOOP -->
+        <a href="https://www.indiamart.com" target="_blank" rel="noopener" class="plogo-card" title="IndiaMart">
+          <img src="https://logo.clearbit.com/indiamart.com?size=80" alt="IndiaMart" loading="eager">
+          <span class="plogo-name">IndiaMart</span>
+        </a>
+        <a href="https://www.tradeindia.com" target="_blank" rel="noopener" class="plogo-card" title="TradeIndia">
+          <img src="https://logo.clearbit.com/tradeindia.com?size=80" alt="TradeIndia" loading="eager">
+          <span class="plogo-name">TradeIndia</span>
+        </a>
+        <a href="https://www.justdial.com" target="_blank" rel="noopener" class="plogo-card" title="JustDial">
+          <img src="https://logo.clearbit.com/justdial.com?size=80" alt="JustDial" loading="eager">
+          <span class="plogo-name">JustDial</span>
+        </a>
+        <a href="https://business.amazon.in" target="_blank" rel="noopener" class="plogo-card" title="Amazon Business">
+          <img src="https://logo.clearbit.com/amazon.com?size=80" alt="Amazon Business" loading="eager">
+          <span class="plogo-name">Amazon Business</span>
+        </a>
+        <a href="https://business.google.com" target="_blank" rel="noopener" class="plogo-card" title="Google Business">
+          <img src="https://logo.clearbit.com/google.com?size=80" alt="Google Business" loading="eager">
+          <span class="plogo-name">Google Business</span>
+        </a>
+        <a href="https://www.alibaba.com" target="_blank" rel="noopener" class="plogo-card" title="Alibaba">
+          <img src="https://logo.clearbit.com/alibaba.com?size=80" alt="Alibaba" loading="eager">
+          <span class="plogo-name">Alibaba</span>
+        </a>
+        <a href="https://www.exportersindia.com" target="_blank" rel="noopener" class="plogo-card" title="ExportersIndia">
+          <img src="https://logo.clearbit.com/exportersindia.com?size=80" alt="ExportersIndia" loading="eager">
+          <span class="plogo-name">ExportersIndia</span>
+        </a>
+        <a href="https://www.sulekha.com" target="_blank" rel="noopener" class="plogo-card" title="Sulekha">
+          <img src="https://logo.clearbit.com/sulekha.com?size=80" alt="Sulekha" loading="eager">
+          <span class="plogo-name">Sulekha</span>
+        </a>
+        <a href="https://udaan.com" target="_blank" rel="noopener" class="plogo-card" title="Udaan">
+          <img src="https://logo.clearbit.com/udaan.com?size=80" alt="Udaan" loading="eager">
+          <span class="plogo-name">Udaan</span>
+        </a>
+        <a href="https://www.yellowpages.in" target="_blank" rel="noopener" class="plogo-card" title="Yellow Pages">
+          <img src="https://logo.clearbit.com/yellowpages.in?size=80" alt="Yellow Pages" loading="eager">
+          <span class="plogo-name">Yellow Pages</span>
+        </a>
+        <a href="https://www.globalsources.com" target="_blank" rel="noopener" class="plogo-card" title="GlobalSources">
+          <img src="https://logo.clearbit.com/globalsources.com?size=80" alt="GlobalSources" loading="eager">
+          <span class="plogo-name">GlobalSources</span>
+        </a>
+        <a href="https://www.tradekey.com" target="_blank" rel="noopener" class="plogo-card" title="TradeKey">
+          <img src="https://logo.clearbit.com/tradekey.com?size=80" alt="TradeKey" loading="eager">
+          <span class="plogo-name">TradeKey</span>
+        </a>
+        <a href="https://www.go4worldbusiness.com" target="_blank" rel="noopener" class="plogo-card" title="Go4WorldBusiness">
+          <img src="https://logo.clearbit.com/go4worldbusiness.com?size=80" alt="Go4WorldBusiness" loading="eager">
+          <span class="plogo-name">Go4WorldBusiness</span>
+        </a>
+        <a href="https://www.bizvibe.com" target="_blank" rel="noopener" class="plogo-card" title="BizVibe">
+          <img src="https://logo.clearbit.com/bizvibe.com?size=80" alt="BizVibe" loading="eager">
+          <span class="plogo-name">BizVibe</span>
+        </a>
+        <a href="https://www.kompass.com" target="_blank" rel="noopener" class="plogo-card" title="Kompass">
+          <img src="https://logo.clearbit.com/kompass.com?size=80" alt="Kompass" loading="eager">
+          <span class="plogo-name">Kompass</span>
+        </a>
+        <a href="https://www.thomasnet.com" target="_blank" rel="noopener" class="plogo-card" title="Thomasnet">
+          <img src="https://logo.clearbit.com/thomasnet.com?size=80" alt="Thomasnet" loading="eager">
+          <span class="plogo-name">Thomasnet</span>
+        </a>
+        <a href="https://mfg.com" target="_blank" rel="noopener" class="plogo-card" title="Mfg.com">
+          <img src="https://logo.clearbit.com/mfg.com?size=80" alt="Mfg.com" loading="eager">
+          <span class="plogo-name">Mfg.com</span>
+        </a>
+        <a href="https://www.wlw.de" target="_blank" rel="noopener" class="plogo-card" title="Wer Liefert Was">
+          <img src="https://logo.clearbit.com/wlw.de?size=80" alt="Wer Liefert Was" loading="eager">
+          <span class="plogo-name">Wer Liefert Was</span>
+        </a>
+        <a href="https://www.europages.com" target="_blank" rel="noopener" class="plogo-card" title="Europages">
+          <img src="https://logo.clearbit.com/europages.com?size=80" alt="Europages" loading="eager">
+          <span class="plogo-name">Europages</span>
+        </a>
+      </div><!-- /platform-track -->
+    </div><!-- /platform-logos-wrap -->
+
+    <div class="platform-divider"></div>
+
+    <div class="platform-badge-col">
+      <div class="platform-verified">
+        <span class="pv-icon">✓</span>
+        <div>
+          <div class="pv-title">Verified Manufacturer</div>
+          <div class="pv-sub">ISO Certified · Since 1975</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="sec prod-sec">
+  <div class="wrap">
+    <div class="lbl">Our Products</div>
+    <h2 class="h2">Our <em>Packaging</em> Products</h2>
+    <p class="sub">No middlemen. Direct factory pricing on all orders. Tap any product to WhatsApp us instantly.</p>
+    
+    <div class="prod-grid">
+
+      <div class="prod-card" onclick="openProductModal(0)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1601598851547-4302969d0614?w=800&h=500&fit=crop&auto=format" alt="Mono Cartons" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Mono Cartons</h3>
+          <p>Offset-printed folding cartons for FMCG, pharma, food and personal care.</p>
+          <div class="prod-tags"><span class="tag">FMCG</span><span class="tag">Pharma</span><span class="tag">Food</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Mono Cartons');openProductQuote('Mono Cartons')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(1)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=800&h=500&fit=crop&auto=format" alt="Rigid Boxes" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Rigid Boxes</h3>
+          <p>Premium setup boxes for luxury brands, jewellery and gifting. Magnetic closure options.</p>
+          <div class="prod-tags"><span class="tag">Luxury</span><span class="tag">Beauty</span><span class="tag">Gifting</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Rigid Boxes');openProductQuote('Rigid Boxes')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(2)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&h=500&fit=crop&auto=format" alt="Cosmetic Packaging" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Cosmetic Packaging</h3>
+          <p>Custom beauty and skincare boxes with embossing, hot foil and soft-touch laminates.</p>
+          <div class="prod-tags"><span class="tag">Skincare</span><span class="tag">D2C</span><span class="tag">Perfume</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Cosmetic Packaging');openProductQuote('Cosmetic Packaging')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(3)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&h=500&fit=crop&auto=format" alt="Pharma Packaging" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Pharma Packaging</h3>
+          <p>Compliant, high-volume mono cartons and folding boxes for medicines and supplements.</p>
+          <div class="prod-tags"><span class="tag">Pharma</span><span class="tag">Healthcare</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Pharma Packaging');openProductQuote('Pharma Packaging')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(4)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=500&fit=crop&auto=format" alt="Food Packaging" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Food Packaging</h3>
+          <p>Food-safe printed cartons for bakery, confectionery, snacks and packaged food.</p>
+          <div class="prod-tags"><span class="tag">Bakery</span><span class="tag">FMCG</span><span class="tag">Eco</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Food Packaging');openProductQuote('Food Packaging')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(5)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=800&h=500&fit=crop&auto=format" alt="Gift & Hamper Boxes" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Gift & Hamper Boxes</h3>
+          <p>Luxury gift boxes, hamper boxes, sleeve and drawer boxes for corporate gifting.</p>
+          <div class="prod-tags"><span class="tag">Corporate</span><span class="tag">Festive</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Gift and Hamper Boxes');openProductQuote('Gift and Hamper Boxes')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(6)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&h=500&fit=crop&auto=format" alt="Corrugated Boxes" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Corrugated Boxes</h3>
+          <p>Custom printed corrugated shipping boxes for bulk dispatch, export and ecommerce.</p>
+          <div class="prod-tags"><span class="tag">Shipping</span><span class="tag">Export</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Corrugated Boxes');openProductQuote('Corrugated Boxes')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(7)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1609791283681-5cd6527df0ea?w=800&h=500&fit=crop&auto=format" alt="Ecommerce Mailer Boxes" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Ecommerce Mailer Boxes</h3>
+          <p>Branded self-locking mailer boxes for D2C brands. Strong, lightweight and print-ready.</p>
+          <div class="prod-tags"><span class="tag">D2C</span><span class="tag">Startups</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Ecommerce Mailer Boxes');openProductQuote('Ecommerce Mailer Boxes')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(8)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&h=500&fit=crop&auto=format" alt="Kappa Board Boxes" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Kappa Board Boxes</h3>
+          <p>High-quality Kappa/greyboard boxes for watches, electronics and premium products.</p>
+          <div class="prod-tags"><span class="tag">Premium</span><span class="tag">Watches</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Kappa Board Boxes');openProductQuote('Kappa Board Boxes')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(9)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=800&h=500&fit=crop&auto=format" alt="POS Display Units" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>POS Display Units</h3>
+          <p>Retail point-of-sale displays, counter displays and shelf-ready packaging.</p>
+          <div class="prod-tags"><span class="tag">Retail</span><span class="tag">FMCG</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('POS Display Units');openProductQuote('POS Display Units')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(10)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=800&h=500&fit=crop&auto=format" alt="Spirits & Liquor Packaging" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Spirits & Liquor Packaging</h3>
+          <p>Premium cartons and rigid boxes for whisky, spirits and wine. Foil and emboss finishes.</p>
+          <div class="prod-tags"><span class="tag">Spirits</span><span class="tag">Premium</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Spirits and Liquor Packaging');openProductQuote('Spirits and Liquor Packaging')">Get Quote →</button>
+        </div>
+      </div>
+      <div class="prod-card" onclick="openProductModal(11)">
+        <div class="prod-img-wrap">
+          <img src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=800&h=500&fit=crop&auto=format" alt="Jewellery Packaging" loading="eager" style="width:100%;height:130px;object-fit:cover;display:block;">
+          <div class="prod-zoom-hint">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35M11 8v6M8 11h6"/></svg>
+            View
+          </div>
+        </div>
+        <div class="prod-body">
+          <h3>Jewellery Packaging</h3>
+          <p>Velvet insert boxes, rigid display boxes and gift sets for jewellery brands.</p>
+          <div class="prod-tags"><span class="tag">Jewellery</span><span class="tag">Luxury</span></div>
+          <button class="prod-quote-btn" onclick="event.stopPropagation();SP.trackProductClick('Jewellery Packaging');openProductQuote('Jewellery Packaging')">Get Quote →</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══ VIDEO SHOWCASE — after products ══ -->
+<div class="video-showcase-strip">
+  <div class="vss-inner">
+    <div class="vss-label">See Our Factory in Action</div>
+    <h2 class="vss-title">Watch Our <em>Manufacturing Process</em></h2>
+    <p class="vss-sub">Real footage from our 200,000 sq ft Noida plant. The machines, the craft, the precision — every box made right here.</p>
+  </div>
+  <div class="vss-video-row">
+    <div class="vss-vid-box">
+      <video
+        src="https://video.wixstatic.com/video/895e2c_86e42e0301ed4330970324ac77022bc1/720p/mp4/file.mp4"
+        autoplay muted loop playsinline preload="auto"
+        poster="https://static.wixstatic.com/media/895e2c_df1ccb10ef894738b00c7603b847278d~mv2.webp">
+      </video>
+      <div class="vss-vid-cap">
+        <span class="vss-cap-dot"></span>
+        High-Speed Offset Press · 10,000 sheets/hour
+      </div>
+    </div>
+    <div class="vss-vid-box">
+      <video
+        src="https://video.wixstatic.com/video/895e2c_786c3c9b5c764342b4f49ea639f8b2ef/1080p/mp4/file.mp4"
+        autoplay muted loop playsinline preload="auto"
+        poster="https://static.wixstatic.com/media/895e2c_df1ccb10ef894738b00c7603b847278d~mv2.webp">
+      </video>
+      <div class="vss-vid-cap">
+        <span class="vss-cap-dot"></span>
+        In-House Die-Cutting & Finishing
+      </div>
+    </div>
+    <div class="vss-vid-box">
+      <video
+        src="https://video.wixstatic.com/video/895e2c_6eb898c92ef04b80935b2681db96ed36/1080p/mp4/file.mp4"
+        autoplay muted loop playsinline preload="auto"
+        poster="https://static.wixstatic.com/media/895e2c_df1ccb10ef894738b00c7603b847278d~mv2.webp">
+      </video>
+      <div class="vss-vid-cap">
+        <span class="vss-cap-dot"></span>
+        Lamination & Premium Finishing
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ CATALOGUE SECTION — LEAD MAGNET HACK ══ -->
+<div class="cat-sec">
+  <div class="cat-inner">
+    <div>
+      <div class="cat-label">Free Resource</div>
+      <h2 class="cat-title">Download Our Full<br><em>Product Catalogue</em></h2>
+      <p class="cat-desc">Get our 48-page catalogue with complete product specs, material options, minimum quantities, finishing options and pricing guidance — straight to your WhatsApp.</p>
+
+      <div class="cat-includes" style="margin-bottom:28px;">
+        <div class="cat-inc-item"><span class="cat-check">✓</span> 18+ packaging product types</div>
+        <div class="cat-inc-item"><span class="cat-check">✓</span> Paper &amp; board material guide</div>
+        <div class="cat-inc-item"><span class="cat-check">✓</span> Finishing options &amp; costs</div>
+        <div class="cat-inc-item"><span class="cat-check">✓</span> Minimum order quantities</div>
+        <div class="cat-inc-item"><span class="cat-check">✓</span> Industry-wise packaging guide</div>
+        <div class="cat-inc-item"><span class="cat-check">✓</span> Sample photos of finished work</div>
+      </div>
+
+      <div class="cat-preview">
+        <div class="cat-card">
+          <div class="cat-card-icon">📑</div>
+          <div class="cat-card-title">Product Specs</div>
+          <div class="cat-card-sub">All 18+ types</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card-icon">🎨</div>
+          <div class="cat-card-title">Finish Samples</div>
+          <div class="cat-card-sub">Foil, UV, matte</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card-icon">📏</div>
+          <div class="cat-card-title">Size Guide</div>
+          <div class="cat-card-sub">Standard sizes</div>
+        </div>
+        <div class="cat-card">
+          <div class="cat-card-icon">💰</div>
+          <div class="cat-card-title">Price Ranges</div>
+          <div class="cat-card-sub">MOQ pricing</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="background:var(--bg2);border:1.5px solid var(--border2);border-radius:8px;padding:28px 24px;">
+        <div style="font-size:14px;font-weight:900;color:var(--ink);margin-bottom:6px;">📥 Get the Catalogue Free</div>
+        <div style="font-size:12.5px;color:var(--t3);margin-bottom:20px;">We'll send it to your WhatsApp immediately.</div>
+
+        <form id="catForm" onsubmit="submitCat(event)">
+          <div class="fg">
+            <label style="color:var(--ink2);">Your Name *</label>
+            <input type="text" id="catName" placeholder="Rajesh Sharma" required>
+          </div>
+          <div class="fg">
+            <label style="color:var(--ink2);">WhatsApp Number *</label>
+            <input type="tel" id="catPhone" placeholder="+91 98717 00000" required>
+          </div>
+          <div class="fg">
+            <label style="color:var(--ink2);">Company Name</label>
+            <input type="text" id="catCompany" placeholder="Your company">
+          </div>
+          <div class="fg">
+            <label style="color:var(--ink2);">Industry</label>
+            <select id="catIndustry">
+              <option value="">Select your industry</option>
+              <option>FMCG / Consumer Goods</option>
+              <option>Cosmetics / Beauty</option>
+              <option>Pharma / Healthcare</option>
+              <option>Food &amp; Beverage</option>
+              <option>Spirits / Liquor</option>
+              <option>Ecommerce / D2C</option>
+              <option>Jewellery / Watches</option>
+              <option>Corporate Gifting</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <button type="submit" class="btn-dl">📲 Send Catalogue to My WhatsApp</button>
+          <div class="cat-note">Your info is safe. We don't share or sell data. <a href="privacy-policy.html" target="_blank" style="color:var(--gold);">Privacy Policy</a></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INDUSTRIES -->
+<section class="sec ind-wrap">
+  <div class="wrap">
+    <div class="lbl">Industries We Serve</div>
+    <h2 class="h2">Packaging for <em>Every</em> Industry</h2>
+    <p class="sub">16+ sectors. Over 5 decades of specialised manufacturing experience across India's major industries.</p>
+    <div class="ind-grid">
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- ShoppingBag — FMCG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        </div>
+        FMCG
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- Sparkles — Cosmetics -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+        </div>
+        Cosmetics &amp; Beauty
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- HeartPulse — Pharma -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l1.5-1.5 2 4.5 2-7 1.5 4h5.27"/></svg>
+        </div>
+        Pharma &amp; Healthcare
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- UtensilsCrossed — Food -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"/><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"/><path d="m2.1 21.8 6.4-6.3"/><path d="m19 5-7 7"/></svg>
+        </div>
+        Food &amp; Beverage
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- Wine — Spirits -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 22h8"/><path d="M7 10h10"/><path d="M12 15v7"/><path d="M12 15a5 5 0 0 0 5-5c0-2-.5-4-2-8H9c-1.5 4-2 6-2 8a5 5 0 0 0 5 5z"/></svg>
+        </div>
+        Spirits &amp; Liquor
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- ShoppingCart — Ecommerce -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        </div>
+        Ecommerce &amp; D2C
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- Gem — Jewellery -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h12l4 6-10 13L2 9Z"/><path d="M11 3 8 9l4 13 4-13-3-6"/><path d="M2 9h20"/></svg>
+        </div>
+        Jewellery &amp; Watches
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- Gift — Corporate -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        </div>
+        Corporate Gifting
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- Cpu — Electronics -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/></svg>
+        </div>
+        Electronics
+      </div>
+
+      <div class="ind-item">
+        <div class="ind-icon">
+          <!-- Shirt — Apparel -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.57a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.57a2 2 0 0 0-1.34-2.23z"/></svg>
+        </div>
+        Apparel &amp; Fashion
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="sec why-sec">
+  <div class="wrap">
+    <div class="lbl">Why Solar Print</div>
+    <h2 class="h2">Why India's Top Brands<br>Choose <em>Solar</em></h2>
+    <p class="sub">Direct manufacturer since 1975. No brokers. No markups. Just the best packaging at the best price.</p>
+    <div class="why-grid">
+      <div class="why-item">
+        <div class="why-n">01 — DIRECT FACTORY</div>
+        <h3>No Middlemen. Factory Pricing.</h3>
+        <p>You deal directly with the manufacturer. No broker margin. The same packaging your competitor pays 30% more for through a middleman.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-n">02 — IN-HOUSE EVERYTHING</div>
+        <h3>200,000 Sq Ft Under One Roof</h3>
+        <p>Prepress, printing, lamination, foiling, embossing, cutting — all in-house. No outsourcing = consistent quality and faster turnaround.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-n">03 — 51 YEARS EXPERIENCE</div>
+        <h3>Trusted Since 1975</h3>
+        <p>Half a century of packaging expertise. We've seen trends come and go. What we guarantee is consistency, quality, and reliability — every time.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-n">04 — ALL FINISHES IN-HOUSE</div>
+        <h3>Every Premium Finish Available</h3>
+        <p>Soft-touch lamination, hot foil stamping, spot UV, embossing, debossing, aqueous coating, metallic inks — no need to go elsewhere.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-n">05 — PAN-INDIA DELIVERY</div>
+        <h3>We Ship Anywhere in India</h3>
+        <p>Delhi NCR base. Clients across Mumbai, Bengaluru, Hyderabad, Pune, Chennai. All major cities served within standard lead times.</p>
+      </div>
+      <div class="why-item">
+        <div class="why-n">06 — DEDICATED ACCOUNT TEAM</div>
+        <h3>One Point of Contact</h3>
+        <p>A dedicated account manager for every client. Direct access via WhatsApp. No call centres. You always know who to reach and they always pick up.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FACTORY GALLERY — real videos + image -->
+<section class="fac-sec">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:36px;">
+      <div class="lbl" style="display:block;text-align:center;">Our Facility</div>
+      <h2 class="h2" style="text-align:center;">200,000 Sq Ft of <em>Pure Manufacturing</em></h2>
+      <p class="sub" style="margin:0 auto;">See our Noida plant in action — the machines, the process, the precision behind every box we make for India's biggest brands.</p>
+    </div>
+
+    <!-- TOP ROW: Two real factory videos side by side -->
+    <div class="fac-video-grid">
+
+      <div class="fac-vid-card">
+        <video
+          src="https://video.wixstatic.com/video/895e2c_786c3c9b5c764342b4f49ea639f8b2ef/1080p/mp4/file.mp4"
+          autoplay muted loop playsinline
+          preload="auto"
+          poster="https://static.wixstatic.com/media/895e2c_df1ccb10ef894738b00c7603b847278d~mv2.webp"
+          style="width:100%;height:100%;object-fit:cover;display:block;">
+        </video>
+        <div class="fac-caption">
+          <span class="fac-cap-icon">🖨️</span>
+          <div>
+            <div class="fac-cap-title">High-Speed Offset Press in Action</div>
+            <div class="fac-cap-sub">Up to 10,000 sheets/hour · 6-colour CMYK + Pantone</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="fac-vid-card">
+        <video
+          src="https://video.wixstatic.com/video/895e2c_6eb898c92ef04b80935b2681db96ed36/1080p/mp4/file.mp4"
+          autoplay muted loop playsinline
+          preload="auto"
+          poster="https://static.wixstatic.com/media/895e2c_df1ccb10ef894738b00c7603b847278d~mv2.webp"
+          style="width:100%;height:100%;object-fit:cover;display:block;">
+        </video>
+        <div class="fac-caption">
+          <span class="fac-cap-icon">⚙️</span>
+          <div>
+            <div class="fac-cap-title">In-House Finishing &amp; Die-Cutting</div>
+            <div class="fac-cap-sub">Lamination · Foiling · Embossing · Assembly — all under one roof</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- BOTTOM ROW: Banner image full-width + 3 stat panels -->
+    <div class="fac-banner-row">
+
+      <div class="fac-banner-img">
+        <img
+          src="https://static.wixstatic.com/media/895e2c_df1ccb10ef894738b00c7603b847278d~mv2.webp"
+          alt="Solar Print Process factory floor — 200,000 sq ft Noida plant"
+          loading="eager">
+        <div class="fac-banner-overlay">
+          <div class="fac-banner-tag">Noida Plant · C-10 Sector 85</div>
+          <div class="fac-banner-headline">India's Most Trusted<br>Packaging Manufacturer</div>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+want+to+visit+or+know+more+about+the+Solar+Print+factory"
+             target="_blank" rel="noopener" class="fac-banner-btn">
+            Schedule a Factory Visit →
+          </a>
+        </div>
+      </div>
+
+      <div class="fac-stats-col">
+        <div class="fac-stat-box">
+          <div class="fac-stat-n">200K</div>
+          <div class="fac-stat-l">Sq Ft Plant</div>
+          <div class="fac-stat-sub">Noida, UP</div>
+        </div>
+        <div class="fac-stat-box">
+          <div class="fac-stat-n">51+</div>
+          <div class="fac-stat-l">Years Running</div>
+          <div class="fac-stat-sub">Est. 1975</div>
+        </div>
+        <div class="fac-stat-box">
+          <div class="fac-stat-n">18+</div>
+          <div class="fac-stat-l">Product Types</div>
+          <div class="fac-stat-sub">All in-house</div>
+        </div>
+        <div class="fac-stat-box" style="background:var(--gold);">
+          <div class="fac-stat-n" style="color:#000;">500+</div>
+          <div class="fac-stat-l" style="color:rgba(0,0,0,.7);">B2B Clients</div>
+          <div class="fac-stat-sub" style="color:rgba(0,0,0,.5);">Pan-India</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+
+<!-- PROCESS -->
+<section class="sec proc-wrap">
+  <div class="wrap">
+    <div class="lbl">How It Works</div>
+    <h2 class="h2">From Enquiry to <em>Delivery</em><br>in 4 Simple Steps</h2>
+    <p class="sub">We've made ordering packaging as simple as possible. No complex processes. Just fast, factory-direct service.</p>
+    <div class="proc-steps">
+      <div class="pstep">
+        <div class="pstep-badge">Step 01</div>
+        <div class="pstep-n">01</div>
+        <h3>Share Your Requirement</h3>
+        <p>WhatsApp or call us with your product type, quantity and any reference. Takes 2 minutes.</p>
+      </div>
+      <div class="pstep">
+        <div class="pstep-badge">Step 02</div>
+        <div class="pstep-n">02</div>
+        <h3>Get Quote in 2 Hours</h3>
+        <p>Our packaging specialist prepares a detailed quote with material options and pricing within 2 working hours.</p>
+      </div>
+      <div class="pstep">
+        <div class="pstep-badge">Step 03</div>
+        <div class="pstep-n">03</div>
+        <h3>Approve Sample &amp; Design</h3>
+        <p>We create a physical sample and digital proof for your approval before full production begins.</p>
+      </div>
+      <div class="pstep">
+        <div class="pstep-badge">Step 04</div>
+        <div class="pstep-n">04</div>
+        <h3>Production &amp; Delivery</h3>
+        <p>Full production begins post-approval. Pan-India dispatch with tracking. On-time, every time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENTS -->
+<section class="sec client-sec">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:40px;">
+      <div class="lbl" style="display:block;text-align:center;">Our Clients</div>
+      <h2 class="h2" style="text-align:center;">Trusted by India's Most<br><em>Recognised Brands</em></h2>
+      <p class="sub" style="margin:0 auto;">From global premium spirits to India's biggest FMCG giants — Solar is the silent force behind their packaging.</p>
+    </div>
+
+    <!-- PRIMARY CLIENT LOGOS — real images -->
+    <div class="client-logo-grid">
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/glenfiddich_logo-zElLT1HnXupZJISttewtWurw9Ko4on.png"
+               alt="Glenfiddich" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Glenfiddich</div>
+        <div class="cl-tag">Spirits</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jackdaniels_logo-PcW4NIXDlzE7pJaRnSvQ8Cx2VEG0Kl.png"
+               alt="Jack Daniel's" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Jack Daniel's</div>
+        <div class="cl-tag">Spirits</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/grants_logo-UDyNB8IJz47iUJP85BrvpArhgrGpVU.png"
+               alt="Grant's" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Grant's</div>
+        <div class="cl-tag">Spirits</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/belvedere_vodka_logo-QOCtNoDqj4mvs3PdPEICUpHMrE5dma.png"
+               alt="Belvedere Vodka" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Belvedere</div>
+        <div class="cl-tag">Spirits</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/kilchoman_logo-GU08dC1xdmzSZMCoesUtTrtW08qp3R.png"
+               alt="Kilchoman" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Kilchoman</div>
+        <div class="cl-tag">Spirits</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/jio_logo-duy96C2Oejr4EijTBAAcOef5XJuMRt.png"
+               alt="Jio" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Jio</div>
+        <div class="cl-tag">Telecom</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/havells_logo-TUAwMHoPLhiz6So6iY64oDczntNWod.png"
+               alt="Havells" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Havells</div>
+        <div class="cl-tag">FMCG</div>
+      </div>
+
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/skyy_vodka_logo-BNjUdpZnH435ieSy5LS90TXjuTyjQI.png"
+               alt="Skyy Vodka" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Skyy Vodka</div>
+        <div class="cl-tag">Spirits</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/v-guard_logo-BOH97m3vxx750FahAaSpvUiy6nAiOP.png"
+               alt="V-Guard" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">V-Guard</div>
+        <div class="cl-tag">FMCG</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/tuborg_logo-uE6CT4Yui2icZXa9WKbxCwfSqml5hI.png"
+               alt="Tuborg" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Tuborg</div>
+        <div class="cl-tag">Beverages</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/bulldog_london_dry_gin_logo-68HQInAvvDpHXCELXof8iRtCcf99xI.png"
+               alt="Bulldog Gin" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Bulldog Gin</div>
+        <div class="cl-tag">Spirits</div>
+      </div>
+
+      <div class="cl-card">
+        <div class="cl-img-wrap">
+          <img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/ballatines_logo-DXW8zDM20eVHwwk4GMgI5u8HQgoIFH.png"
+               alt="Ballantine's" loading="eager" crossorigin="anonymous">
+        </div>
+        <div class="cl-name">Ballantine's</div>
+        <div class="cl-tag">Spirits</div>
+      </div>
+
+    </div>
+    <!-- end primary logos -->
+
+    <!-- DIVIDER WITH QUOTE -->
+    <div class="client-quote-strip">
+      <div class="cqs-stars">★★★★★</div>
+      <blockquote class="cqs-text">"Solar has been our primary packaging partner for 8 years. Their consistency, quality and on-time delivery record is simply unmatched in the industry."</blockquote>
+      <div class="cqs-author">— VP Supply Chain, Leading FMCG Brand &nbsp;·&nbsp; 500+ B2B Clients Served</div>
+    </div>
+
+    <!-- ALSO TRUSTED BY — scrolling ticker -->
+    <div class="ticker-wrap">
+      <div class="ticker-label">Also trusted by 500+ brands including</div>
+      <div class="ticker-track">
+        <div class="ticker-inner">
+          <span>Himalaya Drug Co.</span><span class="t-dot">·</span>
+          <span>Nykaa</span><span class="t-dot">·</span>
+          <span>Mamaearth</span><span class="t-dot">·</span>
+          <span>Johnnie Walker</span><span class="t-dot">·</span>
+          <span>Plum Goodness</span><span class="t-dot">·</span>
+          <span>Royal Stag</span><span class="t-dot">·</span>
+          <span>WOW Skin Science</span><span class="t-dot">·</span>
+          <span>Blenders Pride</span><span class="t-dot">·</span>
+          <span>Boat Lifestyle</span><span class="t-dot">·</span>
+          <span>Minimalist</span><span class="t-dot">·</span>
+          <span>Sugar Cosmetics</span><span class="t-dot">·</span>
+          <span>Dabur</span><span class="t-dot">·</span>
+          <span>Emami</span><span class="t-dot">·</span>
+          <span>Marico</span><span class="t-dot">·</span>
+          <span>ITC</span><span class="t-dot">·</span>
+          <span>Kama Ayurveda</span><span class="t-dot">·</span>
+          <span>Sula Wines</span><span class="t-dot">·</span>
+          <span>Bombay Shaving Co.</span><span class="t-dot">·</span>
+          <!-- loop copy -->
+          <span>Himalaya Drug Co.</span><span class="t-dot">·</span>
+          <span>Nykaa</span><span class="t-dot">·</span>
+          <span>Mamaearth</span><span class="t-dot">·</span>
+          <span>Johnnie Walker</span><span class="t-dot">·</span>
+          <span>Plum Goodness</span><span class="t-dot">·</span>
+          <span>Royal Stag</span><span class="t-dot">·</span>
+          <span>WOW Skin Science</span><span class="t-dot">·</span>
+          <span>Blenders Pride</span><span class="t-dot">·</span>
+          <span>Boat Lifestyle</span><span class="t-dot">·</span>
+          <span>Minimalist</span><span class="t-dot">·</span>
+          <span>Sugar Cosmetics</span><span class="t-dot">·</span>
+          <span>Dabur</span><span class="t-dot">·</span>
+          <span>Emami</span><span class="t-dot">·</span>
+          <span>Marico</span><span class="t-dot">·</span>
+          <span>ITC</span><span class="t-dot">·</span>
+          <span>Kama Ayurveda</span><span class="t-dot">·</span>
+          <span>Sula Wines</span><span class="t-dot">·</span>
+          <span>Bombay Shaving Co.</span><span class="t-dot">·</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="sec cap-sec">
+  <div class="wrap">
+    <div class="lbl">Our Capabilities</div>
+    <h2 class="h2">Every Finish. Every Material.<br><em>In-House.</em></h2>
+    <p class="sub">No outsourcing. No quality loss. Every capability under our 200,000 sq ft roof.</p>
+    <div class="cap-grid" style="margin-top:32px;">
+      <div class="cap-card">
+        <div class="cap-icon">🖨️</div>
+        <h3>Offset &amp; Digital Printing</h3>
+        <p>High-speed, high-definition offset printing. Up to 6 colours + varnish. CMYK and Pantone matched.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">✨</div>
+        <h3>Hot Foil Stamping</h3>
+        <p>Gold, silver, holographic and custom colour foils. Flat and embossed foil options for premium packaging.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🏔️</div>
+        <h3>Embossing &amp; Debossing</h3>
+        <p>Blind embossing, registered embossing and debossing. Creates tactile, high-end packaging feel.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🌟</div>
+        <h3>Spot UV &amp; Aqueous Coating</h3>
+        <p>Gloss spot UV, matte UV, soft-touch and aqueous coating options for visual contrast and protection.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">🪞</div>
+        <h3>Soft-Touch Lamination</h3>
+        <p>Matte soft-touch, gloss and textured lamination films. Industry-preferred for premium cosmetics packaging.</p>
+      </div>
+      <div class="cap-card">
+        <div class="cap-icon">✂️</div>
+        <h3>Die Cutting &amp; Finishing</h3>
+        <p>CNC-precision die cutting, window patching, magnetic closure fitting and all assembly in-house.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="sec testi-sec">
+  <div class="wrap">
+    <div class="lbl">Client Reviews</div>
+    <h2 class="h2">What Our Clients <em>Say</em></h2>
+    <p class="sub">From packaging managers to brand founders — they all say the same thing.</p>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"We've worked with Solar Print for 6 years. Their mono cartons for our pharma range are consistently accurate, delivered on time, and their team always solves problems quickly."</blockquote>
+        <div class="testi-auth">
+          <div class="testi-initial">R</div>
+          <div>
+            <div class="testi-name">Rajesh M.</div>
+            <div class="testi-co">VP Supply Chain, FMCG Brand</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"The soft-touch lamination and gold foil on our cosmetics boxes came out exactly as briefed. Our retail buyers noticed immediately. We've reordered three times since."</blockquote>
+        <div class="testi-auth">
+          <div class="testi-initial">P</div>
+          <div>
+            <div class="testi-name">Priya K.</div>
+            <div class="testi-co">Brand Head, Premium Skincare Label</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-stars">★★★★★</div>
+        <blockquote>"For a spirits brand, the box IS the product experience. Solar understood that without briefing. The rigid box, magnetic closure, foil work — all met our global brand standards."</blockquote>
+        <div class="testi-auth">
+          <div class="testi-initial">A</div>
+          <div>
+            <div class="testi-name">Anshul T.</div>
+            <div class="testi-co">Packaging Manager, Premium Spirits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- TRUST BANNER IMAGE — full-width between testimonials and CTA -->
+<div class="trust-banner-strip">
+  <img
+    src="https://static.wixstatic.com/media/895e2c_df1ccb10ef894738b00c7603b847278d~mv2.webp"
+    alt="Solar Print Process Noida manufacturing facility"
+    loading="eager">
+  <div class="tbanner-overlay">
+    <div class="tbanner-left">
+      <div class="tbanner-eyebrow">Established 1975 · Noida, India</div>
+      <div class="tbanner-title">The Factory Behind India's<br>Most Trusted Packaging</div>
+      <div class="tbanner-chips">
+        <span>200,000 Sq Ft Plant</span>
+        <span>ISO Certified</span>
+        <span>51+ Years</span>
+        <span>Pan-India Delivery</span>
+      </div>
+    </div>
+    <div class="tbanner-right">
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+a+packaging+quote" target="_blank" rel="noopener" class="tbanner-btn">
+        Get Factory Pricing →
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- BOTTOM CTA -->
+<div class="btm">
+  <div class="wrap">
+    <div class="lbl" style="color:rgba(255,255,255,.3)">Ready to Start?</div>
+    <h2 class="h2">Get Your <em>Packaging</em> Quote Today</h2>
+    <p class="sub">Call or WhatsApp us directly. We respond within 2 hours, Monday to Saturday.</p>
+    <div class="btm-acts">
+      <a href="tel:+919871713676" class="btn-wht" onclick="SP.trackCall('bottom_cta')">📞 Call +91 98717 13676</a>
+      <a href="https://wa.me/919871713676?text=Hello%2C+I+need+a+custom+packaging+quote" class="btn-wa" target="_blank" rel="noopener" onclick="SP.trackWhatsApp('bottom_cta')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Us Now
+      </a>
+    </div>
+    <div class="btm-note">C-10, Sector 85, Noida UP 201305 &nbsp;·&nbsp; +91 98717 13676 &nbsp;·&nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="147d7a727b54677b78756664667d7a603a777b79">[email&#160;protected]</a></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:28px;margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.07);">
+      <div>
+        <div class="f-brand-name">Solar Print Process Pvt. Ltd.</div>
+        <div class="f-brand-sub">Established 1975. Direct packaging manufacturer in Noida. 200,000 sq ft in-house facility. Serving 16+ industries pan-India.</div>
+        <div class="f-links">
+          <a href="tel:+919871713676">📞 +91 98717 13676</a>
+          <a href="/cdn-cgi/l/email-protection#d1b8bfb7be91a2bebdb0a3a1a3b8bfa5ffb2bebc">✉ <span class="__cf_email__" data-cfemail="20425553494e45535360535050504c0e494e">[email&#160;protected]</span></a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+a+packaging+quote" target="_blank" rel="noopener" style="color:#4ade80;font-weight:700;">💬 WhatsApp for Quote</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">We Serve Pan-India</div>
+        <div style="font-size:12.5px;color:rgba(255,255,255,.4);line-height:1.95;">
+          C-10, Sector 85, Noida UP 201305<br>
+          Mon–Sat: 9:30 AM – 6:00 PM<br><br>
+          Delhi NCR · Mumbai · Bengaluru<br>
+          Chennai · Hyderabad · Pune<br>
+          Ahmedabad · Kolkata &amp; All India
+        </div>
+        <div class="f-links" style="margin-top:12px;">
+          <a href="privacy-policy.html">Privacy Policy</a>
+          <a href="terms.html">Terms &amp; Conditions</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:20px 32px;">
+      <div>
+        <div class="f-col-title">Packaging Products</div>
+        <div class="f-kw-links">
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Mono+Cartons" target="_blank" rel="noopener">Mono Carton Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Rigid+Boxes" target="_blank" rel="noopener">Rigid Box Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Gift+Boxes" target="_blank" rel="noopener">Gift Box Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Corrugated+Boxes" target="_blank" rel="noopener">Corrugated Box Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Kappa+Boxes" target="_blank" rel="noopener">Kappa Box Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Ecommerce+Packaging" target="_blank" rel="noopener">Ecommerce Packaging</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Mailer+Boxes" target="_blank" rel="noopener">Mailer Box Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Soap+Boxes" target="_blank" rel="noopener">Soap Box Manufacturer</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">By Industry</div>
+        <div class="f-kw-links">
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Cosmetic+Packaging" target="_blank" rel="noopener">Cosmetic Packaging Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Pharma+Packaging" target="_blank" rel="noopener">Pharma Packaging Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Food+Packaging" target="_blank" rel="noopener">Food Packaging Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+FMCG+Packaging" target="_blank" rel="noopener">FMCG Packaging Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Luxury+Packaging" target="_blank" rel="noopener">Luxury Packaging Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Beauty+Skincare+Packaging" target="_blank" rel="noopener">Beauty Packaging Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Spirits+Liquor+Packaging" target="_blank" rel="noopener">Spirits Packaging Manufacturer</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Jewellery+Packaging" target="_blank" rel="noopener">Jewellery Box Manufacturer</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Printing &amp; Finishing</div>
+        <div class="f-kw-links">
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Offset+Printing" target="_blank" rel="noopener">Offset Printing Noida</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Custom+Box+Printing" target="_blank" rel="noopener">Custom Box Printing</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Brochure+Printing" target="_blank" rel="noopener">Brochure Printing Noida</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Catalogue+Printing" target="_blank" rel="noopener">Catalogue Printing</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Hot+Foil+Stamping" target="_blank" rel="noopener">Hot Foil Stamping</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Embossing+Packaging" target="_blank" rel="noopener">Embossing &amp; Debossing</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Soft+Touch+Lamination" target="_blank" rel="noopener">Soft-Touch Lamination</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Spot+UV+Coating" target="_blank" rel="noopener">Spot UV Coating</a>
+        </div>
+      </div>
+      <div>
+        <div class="f-col-title">Cities We Serve</div>
+        <div class="f-kw-links">
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Packaging+Noida" target="_blank" rel="noopener">Packaging Manufacturer Noida</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Packaging+Delhi" target="_blank" rel="noopener">Packaging Manufacturer Delhi</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Packaging+Gurgaon" target="_blank" rel="noopener">Packaging Manufacturer Gurgaon</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Packaging+Greater+Noida" target="_blank" rel="noopener">Packaging Greater Noida</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Packaging+Mumbai" target="_blank" rel="noopener">Packaging Supplier Mumbai</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Packaging+Bengaluru" target="_blank" rel="noopener">Packaging Supplier Bengaluru</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Packaging+Hyderabad" target="_blank" rel="noopener">Packaging Supplier Hyderabad</a>
+          <a href="https://wa.me/919871713676?text=Hello%2C+I+need+Packaging+Pan+India" target="_blank" rel="noopener">Pan-India Packaging Delivery</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 Solar Print Process Pvt. Ltd. · All rights reserved · Established 1975 · Noida, India</span>
+    <span><a href="privacy-policy.html">Privacy Policy</a> · <a href="terms.html">Terms &amp; Conditions</a></span>
+  </div>
+</footer>
+
+<!-- STICKY MOBILE BAR -->
+<div class="mob-bar">
+  <a href="tel:+919871713676" class="mob-quote" onclick="SP.trackCall('mobile_bar')">📞 Call Now</a>
+  <a href="https://wa.me/919871713676?text=Hello%2C+I+need+a+packaging+quote" class="mob-wa" target="_blank" rel="noopener" onclick="SP.trackWhatsApp('mobile_bar')">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    WhatsApp Quote
+  </a>
+</div>
+
+
+<!-- ══ PRODUCT IMAGE LIGHTBOX ══ -->
+<div class="pmodal-overlay" id="productModal" onclick="closePModal(event)">
+  <div class="pmodal-box">
+    <button class="pmodal-close" onclick="closeProductModal()">✕</button>
+    <div class="pmodal-img-wrap">
+      <img id="pmodalImg" src="" alt="">
+    </div>
+    <div class="pmodal-info">
+      <div class="pmodal-name" id="pmodalName"></div>
+      <div class="pmodal-desc" id="pmodalDesc"></div>
+      <div class="pmodal-acts">
+        <button class="pmodal-quote-btn" onclick="openProductQuote(document.getElementById('pmodalName').textContent)">
+          📋 Get a Quote for This Product
+        </button>
+        <a id="pmodalWa" href="#" target="_blank" class="pmodal-wa-btn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp Instead
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ PRODUCT QUOTE FORM MODAL ══ -->
+<div class="qmodal-overlay" id="quoteModal" onclick="closeQModal(event)">
+  <div class="qmodal-box">
+    <button class="qmodal-close" onclick="closeQuoteModal()">✕</button>
+
+    <!-- FORM STATE -->
+    <div id="qmFormState">
+      <div class="qmodal-header">
+        <div class="qmodal-icon">📋</div>
+        <div>
+          <div class="qmodal-title">Request a Quote</div>
+          <div class="qmodal-prod-name" id="qmProductName"></div>
+        </div>
+      </div>
+
+      <div class="qm-fg">
+        <label>Your Name <span class="req">*</span></label>
+        <input type="text" id="qmName" placeholder="Rajesh Sharma" autocomplete="name">
+        <div class="qm-err" id="qmErrName">Please enter your name.</div>
+      </div>
+      <div class="qm-fg">
+        <label>Mobile / WhatsApp <span class="req">*</span></label>
+        <div style="position:relative;">
+          <span style="position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;font-weight:700;color:#999;pointer-events:none;">+91</span>
+          <input type="tel" id="qmPhone" placeholder="98717 13676" inputmode="numeric" maxlength="10" style="padding-left:40px;" autocomplete="tel">
+        </div>
+        <div class="qm-err" id="qmErrPhone">Enter valid 10-digit number starting with 6–9.</div>
+        <div class="qm-ok" id="qmOkPhone">✓ Valid number</div>
+      </div>
+      <div class="qm-fg">
+        <label>Company Name <span class="req">*</span></label>
+        <input type="text" id="qmCompany" placeholder="Your company" autocomplete="organization">
+        <div class="qm-err" id="qmErrCompany">Please enter your company name.</div>
+      </div>
+      <div class="qm-fg">
+        <label>GST Number <span style="font-size:11px;color:#999;">(Optional)</span></label>
+        <input type="text" id="qmGst" placeholder="22AAAAA0000A1Z5" maxlength="15" style="text-transform:uppercase;">
+        <div class="qm-err" id="qmErrGst">Invalid GST format (15 chars, e.g. 22AAAAA0000A1Z5)</div>
+        <div class="qm-ok" id="qmOkGst">✓ Valid GST</div>
+      </div>
+      <div class="qm-fg">
+        <label>Message / Requirements</label>
+        <textarea id="qmMessage" placeholder="Quantity, size, material, deadline…" rows="2" style="resize:none;"></textarea>
+      </div>
+
+      <button class="qm-submit" type="button" onclick="submitQuoteModal()">
+        📞 Submit Quote Request
+      </button>
+      <p class="qm-privacy">
+        We'll call you back within 2 hours. &nbsp;|&nbsp;
+        <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+      </p>
+
+      <!-- WhatsApp fallback — shown after failed submit attempt or as option -->
+      <div class="qm-wa-alt" id="qmWaAlt" style="display:none;">
+        <div class="qm-wa-alt-label">Prefer WhatsApp instead?</div>
+        <a id="qmWaLink" href="#" target="_blank" class="qm-wa-direct">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Send via WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div id="qmSuccessState" style="display:none;text-align:center;padding:32px 16px;">
+      <div style="font-size:48px;margin-bottom:14px;">✅</div>
+      <div style="font-size:18px;font-weight:900;color:#1a1a1a;margin-bottom:8px;">Quote Request Sent!</div>
+      <div style="font-size:13.5px;color:#777;line-height:1.7;margin-bottom:24px;">Our packaging expert will call you within 2 hours with factory-direct pricing and options.</div>
+      <a id="qmSuccessWa" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:7px;background:#25D366;color:#fff;padding:11px 22px;border-radius:4px;font-size:13.5px;font-weight:700;text-decoration:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Also WhatsApp Us
+      </a>
+      <div style="margin-top:14px;"><button onclick="closeQuoteModal()" style="background:none;border:none;color:#999;font-size:12px;cursor:pointer;text-decoration:underline;">Close</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ JAVASCRIPT ══════ -->
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// video removed from hero — now showing after products section
+
+// ── LIVE VISITOR COUNT (FOMO) ─────────────
+var liveBase = 28 + Math.floor(Math.random()*18);
+document.getElementById('liveCount').textContent = liveBase;
+setInterval(function(){
+  if(Math.random()>.6){
+    liveBase += Math.random()>.5?1:-1;
+    liveBase = Math.max(20,Math.min(60,liveBase));
+    document.getElementById('liveCount').textContent = liveBase;
+  }
+},8000);
+
+// ── PHONE FIELD — digits only, live validate ─────────────────
+var phoneInput = document.getElementById('fPhone');
+phoneInput.addEventListener('input', function(){
+  this.value = this.value.replace(/\D/g,'').slice(0,10);
+  if(this.value.length>0) validatePhone(false);
+});
+phoneInput.addEventListener('blur', function(){ validatePhone(true); });
+
+function validatePhone(showErr){
+  var v = phoneInput.value.replace(/\D/g,'');
+  var ok = (v.length===10 && /^[6-9]/.test(v));
+  phoneInput.classList.toggle('is-valid',  ok);
+  phoneInput.classList.toggle('is-invalid', !ok && showErr && v.length>0);
+  document.getElementById('errPhone').style.display = (!ok && showErr && v.length>0)?'block':'none';
+  document.getElementById('okPhone').style.display  = ok?'block':'none';
+  return ok;
+}
+
+// ── GST FIELD — auto-uppercase, live validate ─────────────────
+var gstInput = document.getElementById('fGst');
+var GST_RE = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+gstInput.addEventListener('input', function(){
+  this.value = this.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,15);
+  if(this.value.length>0) validateGst(false);
+});
+gstInput.addEventListener('blur', function(){ validateGst(true); });
+
+function validateGst(showErr){
+  var v = gstInput.value.trim();
+  if(!v){
+    gstInput.classList.remove('is-valid','is-invalid');
+    document.getElementById('errGst').style.display='none';
+    document.getElementById('okGst').style.display='none';
+    return true;
+  }
+  var ok = GST_RE.test(v);
+  gstInput.classList.toggle('is-valid',   ok);
+  gstInput.classList.toggle('is-invalid', !ok && showErr);
+  document.getElementById('errGst').style.display = (!ok && showErr)?'block':'none';
+  document.getElementById('okGst').style.display  = ok?'block':'none';
+  return ok;
+}
+
+// ── MAIN FORM SUBMIT ──────────────────────
+function submitHeroForm(){
+  var name    = document.getElementById('fName');
+  var phone   = document.getElementById('fPhone');
+  var company = document.getElementById('fCompany');
+  var gst     = document.getElementById('fGst');
+  var ok = true;
+
+  // Validate Name
+  if(!name.value.trim() || name.value.trim().length<2){
+    name.classList.add('is-invalid'); name.classList.remove('is-valid');
+    document.getElementById('errName').style.display='block';
+    triggerShake(name); ok=false;
+  } else {
+    name.classList.remove('is-invalid'); name.classList.add('is-valid');
+    document.getElementById('errName').style.display='none';
+  }
+
+  // Validate Phone
+  if(!validatePhone(true)){ triggerShake(phone); ok=false; }
+
+  // Validate Company
+  if(!company.value.trim()){
+    company.classList.add('is-invalid'); company.classList.remove('is-valid');
+    document.getElementById('errCompany').style.display='block';
+    triggerShake(company); ok=false;
+  } else {
+    company.classList.remove('is-invalid'); company.classList.add('is-valid');
+    document.getElementById('errCompany').style.display='none';
+  }
+
+  // Validate GST (optional — only if filled)
+  if(gst.value.trim() && !validateGst(true)){ triggerShake(gst); ok=false; }
+
+  if(!ok){
+    var first = document.querySelector('.fg input.is-invalid');
+    if(first) first.scrollIntoView({behavior:'smooth',block:'center'});
+    return;
+  }
+
+  // Build WhatsApp message
+  var gstPart = gst.value.trim() ? ('%0AGST+No:+'+encodeURIComponent(gst.value.trim())) : '';
+  var msg = 'Hello%2C+I+need+a+packaging+quote.'
+    +'%0AName:+'+encodeURIComponent(name.value.trim())
+    +'%0ACompany:+'+encodeURIComponent(company.value.trim())
+    +'%0APhone:+%2B91+'+encodeURIComponent(phone.value.trim())
+    +gstPart;
+
+  // ── CONVERSION TRACKING ──
+  SP.trackFormLead(
+    document.querySelector('.form-chip.selected') ? document.querySelector('.form-chip.selected').dataset.val : 'General',
+    company.value.trim()
+  );
+  window.open('https://wa.me/919871713676?text='+msg,'_blank');
+
+  // Show success
+  document.querySelectorAll('.form-step').forEach(function(s){s.classList.remove('active');});
+  document.getElementById('fStep2').classList.add('active');
+  document.getElementById('dot2').classList.add('active');
+  var proofRow = document.getElementById('hfcProofRow');
+  if(proofRow) proofRow.style.display='none';
+  showToast('\u2705 Sent! Our expert will call you shortly.');
+}
+
+function triggerShake(el){
+  el.classList.add('shake');
+  setTimeout(function(){el.classList.remove('shake');},400);
+}
+
+// ── CATALOGUE FORM ────────────────────────
+function submitCat(e){
+  e.preventDefault();
+  var name  = document.getElementById('catName').value.trim();
+  var phone = document.getElementById('catPhone').value.trim().replace(/\D/g,'');
+  if(!name){alert('Please enter your name.');return;}
+  if(phone.length<10){alert('Please enter a valid 10-digit mobile number.');return;}
+  var msg='Hello%2C+I+want+the+Solar+Print+catalogue.'
+    +'%0AName:+'+encodeURIComponent(document.getElementById('catName').value.trim())
+    +'%0ACompany:+'+encodeURIComponent(document.getElementById('catCompany').value)
+    +'%0AIndustry:+'+encodeURIComponent(document.getElementById('catIndustry').value);
+  SP.trackCatalogue(document.getElementById('catIndustry').value);
+  window.open('https://wa.me/919871713676?text='+msg,'_blank');
+  showToast('\ud83d\udcf2 Catalogue request sent to WhatsApp!');
+  document.getElementById('catForm').reset();
+}
+
+// ── EXIT INTENT ───────────────────────────
+var eiShown=false;
+document.addEventListener('mouseleave',function(e){
+  if(e.clientY<5&&!eiShown&&!sessionStorage.getItem('ei_done')){
+    eiShown=true; document.getElementById('eiOverlay').classList.add('open'); SP.trackExitIntent('shown');
+  }
+});
+var lastScrollY=0;
+window.addEventListener('scroll',function(){
+  var y=window.scrollY;
+  if(y<lastScrollY-200&&!eiShown&&y>400&&!sessionStorage.getItem('ei_done')){
+    eiShown=true; document.getElementById('eiOverlay').classList.add('open'); SP.trackExitIntent('shown');
+  }
+  lastScrollY=y;
+});
+function closeEI(){
+  document.getElementById('eiOverlay').classList.remove('open');
+  sessionStorage.setItem('ei_done','1');
+}
+function submitEI(e){
+  e.preventDefault();
+  var n=document.getElementById('eiName').value.trim();
+  var p=document.getElementById('eiPhone').value.trim().replace(/\D/g,'');
+  if(!n||p.length<10){alert('Please enter a valid name and 10-digit phone number.');return;}
+  var msg='Hello%2C+I+was+about+to+leave+but+wanted+a+quick+quote.'+'%0AName:+'+encodeURIComponent(n)+'%0APhone:+%2B91+'+encodeURIComponent(p);
+  SP.trackWhatsApp('exit_intent_popup');
+  SP.trackExitIntent('whatsapp_clicked');
+  window.open('https://wa.me/919871713676?text='+msg,'_blank');
+  closeEI(); showToast('\u2705 Thank you! We\'ll call you shortly.');
+}
+document.getElementById('eiOverlay').addEventListener('click',function(e){if(e.target===this)closeEI();});
+
+
+// ── PRODUCT DATA FOR MODALS ───────────────
+var PROD_DATA = [
+  {name:"Mono Cartons", img:"https://images.unsplash.com/photo-1601598851547-4302969d0614?w=900&h=500&fit=crop&auto=format", desc:"Offset-printed folding cartons for FMCG, pharma, food and personal care. All finishes available.", wa:"Mono+Cartons"},
+  {name:"Rigid Boxes", img:"https://images.unsplash.com/photo-1512428559087-560fa5ceab42?w=900&h=500&fit=crop&auto=format", desc:"Premium setup boxes for luxury brands, jewellery and gifting. Magnetic closure options.", wa:"Rigid+Boxes"},
+  {name:"Cosmetic Packaging", img:"https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=900&h=500&fit=crop&auto=format", desc:"Custom beauty and skincare boxes with embossing, hot foil and soft-touch laminates.", wa:"Cosmetic+Packaging"},
+  {name:"Pharma Packaging", img:"https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=900&h=500&fit=crop&auto=format", desc:"Compliant high-volume mono cartons and folding boxes for medicines and supplements.", wa:"Pharma+Packaging"},
+  {name:"Food Packaging", img:"https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&h=500&fit=crop&auto=format", desc:"Food-safe printed cartons for bakery, confectionery, snacks and packaged food.", wa:"Food+Packaging"},
+  {name:"Gift & Hamper Boxes", img:"https://images.unsplash.com/photo-1513201099705-a9746e1e201f?w=900&h=500&fit=crop&auto=format", desc:"Luxury gift boxes, hamper boxes, sleeve and drawer boxes for corporate gifting.", wa:"Gift+Boxes"},
+  {name:"Corrugated Boxes", img:"https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=900&h=500&fit=crop&auto=format", desc:"Custom printed corrugated shipping boxes for bulk dispatch, export and ecommerce.", wa:"Corrugated+Boxes"},
+  {name:"Ecommerce Mailer Boxes", img:"https://images.unsplash.com/photo-1609791283681-5cd6527df0ea?w=900&h=500&fit=crop&auto=format", desc:"Branded self-locking mailer boxes for D2C brands. Strong, lightweight and print-ready.", wa:"Ecommerce+Mailer+Boxes"},
+  {name:"Kappa Board Boxes", img:"https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=900&h=500&fit=crop&auto=format", desc:"High-quality Kappa/greyboard boxes for watches, electronics and premium products.", wa:"Kappa+Boxes"},
+  {name:"POS Display Units", img:"https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=900&h=500&fit=crop&auto=format", desc:"Retail point-of-sale displays, counter displays and shelf-ready packaging.", wa:"Display+Units"},
+  {name:"Spirits & Liquor Packaging", img:"https://images.unsplash.com/photo-1569529465841-dfecdab7503b?w=900&h=500&fit=crop&auto=format", desc:"Premium cartons and rigid boxes for whisky, spirits and wine. Foil and emboss finishes.", wa:"Spirits+Packaging"},
+  {name:"Jewellery Packaging", img:"https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=900&h=500&fit=crop&auto=format", desc:"Velvet insert boxes, rigid display boxes and gift sets for jewellery brands.", wa:"Jewellery+Packaging"}
+];
+
+// ── OPEN PRODUCT LIGHTBOX ─────────────────
+function openProductModal(idx){
+  var d = PROD_DATA[idx];
+  SP.trackProductClick(d.name);
+  document.getElementById('pmodalImg').src = d.img;
+  document.getElementById('pmodalImg').alt = d.name;
+  document.getElementById('pmodalName').textContent = d.name;
+  document.getElementById('pmodalDesc').textContent = d.desc;
+  document.getElementById('pmodalWa').href = 'https://wa.me/919871713676?text=Hello%2C+I+need+'+d.wa;
+  document.getElementById('productModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeProductModal(){
+  document.getElementById('productModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closePModal(e){ if(e.target===document.getElementById('productModal')) closeProductModal(); }
+
+// ── OPEN QUOTE MODAL ──────────────────────
+var _currentProduct = '';
+function openProductQuote(productName){
+  _currentProduct = productName;
+  document.getElementById('qmProductName').textContent = productName;
+  document.getElementById('quoteModal').classList.add('open');
+  document.getElementById('qmFormState').style.display = 'block';
+  document.getElementById('qmSuccessState').style.display = 'none';
+  document.getElementById('qmWaAlt').style.display = 'none';
+  // Reset fields
+  ['qmName','qmPhone','qmCompany','qmGst','qmMessage'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el){ el.value=''; el.classList.remove('is-invalid','is-valid'); }
+  });
+  ['qmErrName','qmErrPhone','qmErrCompany','qmErrGst','qmOkPhone','qmOkGst'].forEach(function(id){
+    document.getElementById(id).style.display='none';
+  });
+  document.body.style.overflow = 'hidden';
+  // Close product modal if open
+  document.getElementById('productModal').classList.remove('open');
+}
+function closeQuoteModal(){
+  document.getElementById('quoteModal').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeQModal(e){ if(e.target===document.getElementById('quoteModal')) closeQuoteModal(); }
+
+// ── QUOTE MODAL PHONE VALIDATION ──────────
+var qmPhone = document.getElementById('qmPhone');
+if(qmPhone){
+  qmPhone.addEventListener('input',function(){
+    this.value=this.value.replace(/\D/g,'').slice(0,10);
+    if(this.value.length>0) validateQmPhone(false);
+  });
+  qmPhone.addEventListener('blur',function(){ validateQmPhone(true); });
+}
+function validateQmPhone(showErr){
+  var v = document.getElementById('qmPhone').value.replace(/\D/g,'');
+  var ok = (v.length===10 && /^[6-9]/.test(v));
+  document.getElementById('qmPhone').classList.toggle('is-valid',ok);
+  document.getElementById('qmPhone').classList.toggle('is-invalid',!ok&&showErr&&v.length>0);
+  document.getElementById('qmErrPhone').style.display=(!ok&&showErr&&v.length>0)?'block':'none';
+  document.getElementById('qmOkPhone').style.display=ok?'block':'none';
+  return ok;
+}
+
+// GST in quote modal
+var qmGst = document.getElementById('qmGst');
+if(qmGst){
+  qmGst.addEventListener('input',function(){
+    this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,15);
+    if(this.value.length>0) validateQmGst(false);
+  });
+  qmGst.addEventListener('blur',function(){ validateQmGst(true); });
+}
+var QM_GST_RE=/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+function validateQmGst(showErr){
+  var v=document.getElementById('qmGst').value.trim();
+  if(!v){
+    document.getElementById('qmGst').classList.remove('is-valid','is-invalid');
+    document.getElementById('qmErrGst').style.display='none';
+    document.getElementById('qmOkGst').style.display='none';
+    return true;
+  }
+  var ok=QM_GST_RE.test(v);
+  document.getElementById('qmGst').classList.toggle('is-valid',ok);
+  document.getElementById('qmGst').classList.toggle('is-invalid',!ok&&showErr);
+  document.getElementById('qmErrGst').style.display=(!ok&&showErr)?'block':'none';
+  document.getElementById('qmOkGst').style.display=ok?'block':'none';
+  return ok;
+}
+
+// ── SUBMIT QUOTE MODAL FORM ───────────────
+var _qmAttempts = 0;
+function submitQuoteModal(){
+  var name    = document.getElementById('qmName');
+  var phone   = document.getElementById('qmPhone');
+  var company = document.getElementById('qmCompany');
+  var gst     = document.getElementById('qmGst');
+  var ok = true;
+
+  if(!name.value.trim()||name.value.trim().length<2){
+    name.classList.add('is-invalid');
+    document.getElementById('qmErrName').style.display='block';
+    ok=false;
+  } else { name.classList.remove('is-invalid'); name.classList.add('is-valid'); document.getElementById('qmErrName').style.display='none'; }
+
+  if(!validateQmPhone(true)) ok=false;
+
+  if(!company.value.trim()){
+    company.classList.add('is-invalid');
+    document.getElementById('qmErrCompany').style.display='block';
+    ok=false;
+  } else { company.classList.remove('is-invalid'); company.classList.add('is-valid'); document.getElementById('qmErrCompany').style.display='none'; }
+
+  if(gst.value.trim()&&!validateQmGst(true)) ok=false;
+
+  _qmAttempts++;
+  // After first failed attempt — show WhatsApp fallback
+  if(!ok){
+    if(_qmAttempts>=1){
+      var waMsg='Hello%2C+I+need+a+quote+for+'+encodeURIComponent(_currentProduct||'packaging');
+      document.getElementById('qmWaLink').href='https://wa.me/919871713676?text='+waMsg;
+      document.getElementById('qmWaAlt').style.display='block';
+    }
+    return;
+  }
+
+  // Build WhatsApp message as backup + show success
+  var gstPart = gst.value.trim() ? ('%0AGST:+'+encodeURIComponent(gst.value.trim())) : '';
+  var waMsg = 'Hello%2C+I+need+a+quote+for+'+encodeURIComponent(_currentProduct||'packaging')
+    +'%0AName:+'+encodeURIComponent(name.value.trim())
+    +'%0ACompany:+'+encodeURIComponent(company.value.trim())
+    +'%0APhone:+%2B91+'+encodeURIComponent(phone.value.trim())
+    +gstPart;
+
+  // Update WA link in success state
+  document.getElementById('qmSuccessWa').href = 'https://wa.me/919871713676?text='+waMsg;
+
+  // ── CONVERSION TRACKING ──
+  SP.trackQuoteModal(_currentProduct, document.getElementById('qmCompany').value.trim());
+
+  // Show success
+  document.getElementById('qmFormState').style.display='none';
+  document.getElementById('qmSuccessState').style.display='block';
+  _qmAttempts = 0;
+  showToast('\u2705 Quote request submitted!');
+}
+
+
+
+// ── CATALOGUE FORM ────────────────────────
+
+// ── TOAST ─────────────────────────────────
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},3500);
+}
+</script>
+</body>
+</html>
